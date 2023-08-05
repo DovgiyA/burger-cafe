@@ -1,13 +1,12 @@
-import { fixtures } from '../../constants/fixtures';
 import styles from './BurgerCards.module.css';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
  
-export const BurgerCards = () => {
+export const BurgerCards = (props) => {
 
     return(
         <div className={styles.ingredients}>
-        {fixtures.map(item => item.type === 'sauce' ? 
+        {props.data && props.data.map(item => item.type === props.type ? 
         (<div key={item._id} className={styles.cardCrator}>       
           <img src={item.image} alt={item.name}></img> 
           <div className={styles.price}>

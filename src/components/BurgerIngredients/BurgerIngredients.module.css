@@ -2,11 +2,6 @@
   position: relative;
 }
 
-.tabContainer {
-    display: flex;
-    padding-bottom: 10px;
-}
-
 .scrollBar {
     padding: 1rem;
     max-height: 100vh;
