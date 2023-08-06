@@ -27,6 +27,6 @@ export const Modal = ({children, setIsOpen}) => {
 }
 
 Modal.propTypes = {    
-    children: PropTypes.element.isRequired,
-    setIsOpen:  PropTypes.func,
+    children: PropTypes.arrayOf(PropTypes.element.isRequired),
+    setIsOpen:  PropTypes.func.isRequired,
   };

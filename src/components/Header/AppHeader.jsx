@@ -1,8 +1,10 @@
 import styles from "./AppHeader.module.css";
 import { Logo, BurgerIcon, ListIcon, ProfileIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import PropTypes from 'prop-types';
 
-export const AppHeader  = (props) => {
-    return (<div {...props}>
+
+export const AppHeader  = ({className}) => {
+    return (<div className={className}>
       <header className={styles.main}>       
           <span className={styles.constructor}>
             <BurgerIcon type="primary" />
@@ -26,4 +28,8 @@ export const AppHeader  = (props) => {
        
       </header>
       </div>);
+  };
+
+  AppHeader.propTypes = { 
+    className: PropTypes.string.isRequired
   };

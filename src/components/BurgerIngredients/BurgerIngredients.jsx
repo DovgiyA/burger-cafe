@@ -7,6 +7,7 @@ import { ModalOverlay } from '../ModalOverlay/ModalOverlay';
 import { Tabs } from '../Tabs/Tabs';
 import { Modal } from '../Modal/Modal';
 import { IngredientDetails } from '../IngredientDetails/IngredientDetails';
+import { shape } from '../../utils/props-type';
 
 
 export const BurgerIngredients = ({className, data}) => {
@@ -32,25 +33,12 @@ export const BurgerIngredients = ({className, data}) => {
         <h2 className={styles.h2}>Начинки</h2>
           <BurgerCards type={'main'} data={data} />
       </section>    
-        {ingredient.length && isOpen && <ModalOverlay setIsOpen={setIsOpen} />}
-        {ingredient.length && isOpen && (<Modal setIsOpen={setIsOpen}><IngredientDetails setIsOpen={setIsOpen} data={ingredient} /></Modal>)}
+        {ingredient.length && isOpen && (<Modal setIsOpen={setIsOpen}><ModalOverlay setIsOpen={setIsOpen} /><IngredientDetails setIsOpen={setIsOpen} data={ingredient} /></Modal>)}
     </div>
 )}
 
 BurgerIngredients.propTypes = {    
-  data: PropTypes.arrayOf(PropTypes.shape({
-    _id: PropTypes.string,
-    name: PropTypes.string,
-    type: PropTypes.string,
-    proteins: PropTypes.number,
-    fat: PropTypes.number,
-    carbohydrates: PropTypes.number,
-    calories: PropTypes.number,
-    price: PropTypes.number,
-    image: PropTypes.string,
-    image_mobile: PropTypes.string,
-    image_large: PropTypes.string,
-    __v: PropTypes.number
-  })) 
+  data: PropTypes.arrayOf(shape),
+  className: PropTypes.string.isRequired
 };
  

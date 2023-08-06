@@ -1,6 +1,7 @@
 import styles from "./IngredientDetails.module.css";
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
+import { shape } from "../../utils/props-type";
 
 
 export const IngredientDetails = ({setIsOpen, data}) => {
@@ -37,19 +38,6 @@ export const IngredientDetails = ({setIsOpen, data}) => {
 }
 
 IngredientDetails.propTypes = {    
-    data: PropTypes.arrayOf(PropTypes.shape({
-        _id: PropTypes.string,
-        name: PropTypes.string,
-        type: PropTypes.string,
-        proteins: PropTypes.number,
-        fat: PropTypes.number,
-        carbohydrates: PropTypes.number,
-        calories: PropTypes.number,
-        price: PropTypes.number,
-        image: PropTypes.string,
-        image_mobile: PropTypes.string,
-        image_large: PropTypes.string,
-        __v: PropTypes.number
-      })),
-      setIsOpen:  PropTypes.func,
+    data: PropTypes.arrayOf(shape),
+      setIsOpen:  PropTypes.func.isRequired,
   };

@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { Modal } from '../Modal/Modal';
 import { ModalOverlay } from '../ModalOverlay/ModalOverlay';
 import { OrderDetails } from '../OrderDetails/OrderDetails';
+import { shape } from '../../utils/props-type';
 
 
 export const BurgerConstructor  = ({className, data}) => {
@@ -43,26 +44,12 @@ export const BurgerConstructor  = ({className, data}) => {
         </span>  
         <Button htmlType="button" type="primary" size="large" onClick={() => setIsOpen(true)}>
            Оформить заказ
-        </Button>
-        {isOpen && <ModalOverlay setIsOpen={setIsOpen} />}
-        {isOpen && (<Modal setIsOpen={setIsOpen}><OrderDetails setIsOpen={setIsOpen} /></Modal>)}       
+        </Button>     
+        {isOpen && (<Modal setIsOpen={setIsOpen}><ModalOverlay setIsOpen={setIsOpen} /><OrderDetails setIsOpen={setIsOpen} /></Modal>)}       
     </div>
     </div>);  
   };
 
   BurgerConstructor.propTypes = {    
-    data: PropTypes.arrayOf(PropTypes.shape({
-      _id: PropTypes.string,
-      name: PropTypes.string,
-      type: PropTypes.string,
-      proteins: PropTypes.number,
-      fat: PropTypes.number,
-      carbohydrates: PropTypes.number,
-      calories: PropTypes.number,
-      price: PropTypes.number,
-      image: PropTypes.string,
-      image_mobile: PropTypes.string,
-      image_large: PropTypes.string,
-      __v: PropTypes.number
-    })) 
+    data: PropTypes.arrayOf(shape) 
   };

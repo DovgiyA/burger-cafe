@@ -18,5 +18,5 @@ export const OrderDetails = ({setIsOpen}) => {
 }
 
 OrderDetails.propTypes = {    
-    setIsOpen:  PropTypes.func,
+    setIsOpen:  PropTypes.func.isRequired,
   };
