@@ -1,0 +1,39 @@
+.main {
+  display: grid;
+  grid-template-columns: auto auto auto auto 1fr auto;
+  grid-template-rows: auto;
+  gap: 80px;
+  grid-template-areas: 
+  'constructor orders . logo . account';
+  align-items: center;
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+
+.constructor {
+  grid-area: constructor;
+  
+}
+
+.orders {
+  grid-area: orders;
+}
+
+.logo {
+  grid-area: logo;
+  padding-left: 20px;
+}
+
+.account {
+  grid-area: account;    
+}
+    
+.link {
+  vertical-align: super;
+  padding-left: 10px;
+  font-family: JetBrains Mono;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+}
