@@ -1,10 +1,14 @@
-import styles from './BurgerCards.module.css';
+import styles from './IngredientCards.module.css';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
 import { shape } from '../../utils/props-type';
+import { useContext } from 'react';
+import { DataContext } from '../../services/dataContext';
 
  
-export const BurgerCards = ({type, data}) => {
+export const IngredientCards = ({type}) => {
+
+  const { data } = useContext(DataContext);
 
     return(
         <div className={styles.ingredients}>
@@ -21,7 +25,7 @@ export const BurgerCards = ({type, data}) => {
     )
 }
 
-BurgerCards.propTypes = {    
+IngredientCards.propTypes = {    
   data: PropTypes.arrayOf(shape),
   type: PropTypes.string.isRequired
 };

@@ -3,12 +3,12 @@ import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
 
 
-export const OrderDetails = ({setIsOpen}) => {
+export const OrderDetails = ({setIsOpen, ordersID}) => {
 
     return (
         <div className={styles.container}>
             <div className={styles.close} ><CloseIcon type="primary" onClick={() => setIsOpen(false)} /></div>
-            <div className={styles.id}>034536</div>
+            <div className={styles.id}>{ordersID}</div>
             <div className={styles.idText}>идентификатор заказа</div>
             <div className={styles.mark}><img src="../../public/images/graphics.png" alt="Successe" /></div>
             <div className={styles.cooking}>Ваш заказ начали готовить</div>
@@ -19,4 +19,5 @@ export const OrderDetails = ({setIsOpen}) => {
 
 OrderDetails.propTypes = {    
     setIsOpen:  PropTypes.func.isRequired,
+    ordersID: PropTypes.number.isRequired
   };

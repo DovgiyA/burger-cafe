@@ -1,23 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import './App.css';
-import { FetchData } from './FetchData/FetchData';
 import { Layout } from './components/Layout/Layout';
 import WebFont from 'webfontloader';
+import { DataContextProvider } from './services/DataContextProvider';
 
 
-function App() { 
-
-  const [data, setData] = useState();
-
-  useEffect(() => {    
-     const loadData = async () => {
-      const result = await FetchData();
-
-      setData(result);
-     };
-
-     loadData();
-  }, []);
+function App() {  
 
   useEffect(() => {
     WebFont.load({
@@ -28,7 +16,9 @@ function App() {
    }, []);
 
   return (
-   <Layout data={data} />
+    <DataContextProvider>
+      <Layout />
+    </DataContextProvider>
   );
  
 }

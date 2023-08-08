@@ -2,9 +2,13 @@ import styles from "./IngredientDetails.module.css";
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
 import { shape } from "../../utils/props-type";
+import { useContext } from "react";
+import { DataContext } from "../../services/dataContext";
 
 
-export const IngredientDetails = ({setIsOpen, data}) => {
+export const IngredientDetails = ({setIsOpen}) => {
+
+    const { data } = useContext(DataContext);
 
     return (
         (<div className={styles.container} >
@@ -39,5 +43,5 @@ export const IngredientDetails = ({setIsOpen, data}) => {
 
 IngredientDetails.propTypes = {    
     data: PropTypes.arrayOf(shape),
-      setIsOpen:  PropTypes.func.isRequired,
+    setIsOpen:  PropTypes.func.isRequired,
   };
