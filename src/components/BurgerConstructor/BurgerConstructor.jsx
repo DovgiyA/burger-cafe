@@ -40,11 +40,12 @@ export const BurgerConstructor  = ({className}) => {
     
     useEffect(() => {
 
-      const arr = data?.map(item => item._id);   
-      const jsonForSending = JSON.stringify({ingredients: arr});
+      const arr = data && data.map(item => item._id);   
+      
 
       const responce = async () => {
-        const result = await sendData(jsonForSending);       
+        const result = await sendData(arr); 
+           
         setOrdersID(result?.order.number);
       }    
 
