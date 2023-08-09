@@ -2,13 +2,12 @@ import styles from "./IngredientDetails.module.css";
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
 import { shape } from "../../utils/props-type";
-import { useContext } from "react";
-import { DataContext } from "../../services/dataContext";
 
 
-export const IngredientDetails = ({setIsOpen}) => {
 
-    const { data } = useContext(DataContext);
+export const IngredientDetails = ({setIsOpen, ingredient}) => {
+    console.log(ingredient)
+   
 
     return (
         (<div className={styles.container} >
@@ -16,24 +15,24 @@ export const IngredientDetails = ({setIsOpen}) => {
                 <span className={styles.header}>Детали ингредиента</span>
                 <CloseIcon type="primary" onClick={() => setIsOpen(false)} />
             </div>            
-            <div className={styles.img}><img src={data[0].image_large} alt="Ингредиент" /></div>
-            <div className={styles.name}>{data[0].name}</div>
+            <div className={styles.img}><img src={ingredient.image_large} alt="Ингредиент" /></div>
+            <div className={styles.name}>{ingredient.name}</div>
             <div className={styles.macronutrients}>
                 <div>
                     <div className={styles.gap}>Калории,ккал</div>
-                    <div>{data[0].calories}</div>
+                    <div>{ingredient.calories}</div>
                 </div>
                 <div>
                     <div  className={styles.gap}>Белки, г</div>
-                    <div>{data[0].proteins}</div>
+                    <div>{ingredient.proteins}</div>
                 </div>
                 <div>
                     <div  className={styles.gap}>Жиры, г</div>
-                    <div>{data[0].fat}</div>
+                    <div>{ingredient.fat}</div>
                 </div>
                 <div>
                     <div  className={styles.gap}>Углеводы, г</div>
-                    <div>{data[0].carbohydrates}</div>
+                    <div>{ingredient.carbohydrates}</div>
                 </div>
                
             </div>
@@ -42,6 +41,6 @@ export const IngredientDetails = ({setIsOpen}) => {
 }
 
 IngredientDetails.propTypes = {    
-    data: PropTypes.arrayOf(shape),
+    ingredient: shape,
     setIsOpen:  PropTypes.func.isRequired,
   };

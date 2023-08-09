@@ -35,7 +35,7 @@ export const BurgerIngredients = ({className}) => {
         <h2 className={styles.h2}>Начинки</h2>
           <IngredientCards type={'main'} />
       </section>    
-        {ingredient.length && isOpen && (<Modal setIsOpen={setIsOpen}><ModalOverlay setIsOpen={setIsOpen} /><IngredientDetails setIsOpen={setIsOpen} data={ingredient} /></Modal>)}
+        {ingredient.length && isOpen && (<Modal setIsOpen={setIsOpen}><ModalOverlay setIsOpen={setIsOpen} /><IngredientDetails setIsOpen={setIsOpen} ingredient={ingredient[0]} /></Modal>)}
     </div>
 )}
 

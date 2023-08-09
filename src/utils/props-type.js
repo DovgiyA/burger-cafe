@@ -15,7 +15,7 @@ export const shape = PropTypes.shape({
     __v: PropTypes.number.isRequired
     }).isRequired
 
-export const responce = PropTypes.shape({
+export const response = PropTypes.shape({
     ingredients: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired
     }).isRequired
  

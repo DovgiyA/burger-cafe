@@ -43,13 +43,13 @@ export const BurgerConstructor  = ({className}) => {
       const arr = data && data.map(item => item._id);   
       
 
-      const responce = async () => {
+      const response = async () => {
         const result = await sendData(arr); 
            
         setOrdersID(result?.order.number);
       }    
 
-      responce();
+      response();
       
     }, [data]);
 

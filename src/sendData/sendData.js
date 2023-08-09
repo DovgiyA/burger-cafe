@@ -1,5 +1,5 @@
 import { SENDING } from "../constants/constants";
-import { responce } from "../utils/props-type";
+import { response } from "../utils/props-type";
 import PropTypes from 'prop-types';
 
 
@@ -30,5 +30,5 @@ export const sendData = async (ordersData) => {
   }
 
   sendData.propTypes = {    
-    ordersData:  PropTypes.arrayOf(responce).isRequired,    
+    ordersData:  PropTypes.arrayOf(response).isRequired,    
   };
