@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import imageSuccess from './imageSuccess.png';
 
 
-export const OrderDetails = ({setIsOpen, orderID}) => {
+export const OrderDetails = ({orderID}) => {
   
     return (
         <div className={styles.container}>
@@ -16,8 +16,7 @@ export const OrderDetails = ({setIsOpen, orderID}) => {
     )
 }
 
-OrderDetails.propTypes = {    
-    setIsOpen:  PropTypes.func.isRequired,
+OrderDetails.propTypes = {  
     orderID: PropTypes.number.isRequired
   };
 

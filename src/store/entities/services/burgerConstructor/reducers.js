@@ -33,8 +33,13 @@ export const dndReducer = (state = initialState, action) => {
       case DRAG_INGREDIENT.SORT_IN_CONSTRUCTOR: {
         return {
           ...state,
-          ingredientsWithoutBuns: [...action.payload]
-            
+          ingredientsWithoutBuns: [...action.payload]            
+        };
+      }
+
+      case DRAG_INGREDIENT.RESET_IN_CONSTRUCTOR: {
+        return {
+          ...initialState            
         };
       }
           

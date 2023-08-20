@@ -8,6 +8,7 @@ import { OrderDetails } from '../OrderDetails/OrderDetails';
 import { useDispatch, useSelector } from 'react-redux';
 import { BurgerCardContainer } from '../BurgerCardContainer/BurgerCardContainer';
 import { sendOrder } from '../../store/entities/services/sendOrder/actions';
+import { resetIngredient } from '../../store/entities/services/burgerConstructor/actions';
 
 
 export const BurgerConstructor  = ({className}) => {
@@ -22,6 +23,7 @@ export const BurgerConstructor  = ({className}) => {
   
   useEffect(() => {
     dispatch(sendOrder([...ingredientsWithoutBuns, buns]));
+    dispatch(resetIngredient());
   }, [isOpen]);  
   
  
