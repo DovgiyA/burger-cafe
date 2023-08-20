@@ -1,4 +1,5 @@
-import { FetchData } from "../../../../FetchData/FetchData";
+import { LOADING } from "../../../../constants/constants";
+import { request } from "../../../../utils/request";
 
 export const INGREDIENTS_LOADING_STATUS = {
     GET_INGREDIENTS_REQUEST: "GET_INGREDIENTS_REQUEST", 
@@ -10,21 +11,25 @@ export const INGREDIENTS_LOADING_STATUS = {
   export function getIngredients() {
    
     return async function(dispatch) {
+
       dispatch({
         type: INGREDIENTS_LOADING_STATUS.GET_INGREDIENTS_REQUEST
       });
-      const data = await FetchData();      
-        if (data) {
+      try {
+        const result = await request(LOADING);      
+        if (result) {
           dispatch({
             type: INGREDIENTS_LOADING_STATUS.INGREDIENTS_FINISHED,
-            ingredients: data
+            ingredients: result.data
           });
         } else {
           dispatch({
             type: INGREDIENTS_LOADING_STATUS.INGREDIENTS_FAILED
           });
         }
-     
+      } catch(e) {
+        console.log(e);
+      }     
     };
   }
 

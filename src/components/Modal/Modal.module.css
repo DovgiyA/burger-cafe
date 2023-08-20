@@ -1,0 +1,10 @@
+.container {
+    position: relative;
+}
+
+.close {
+    position: absolute;
+    left: 75%;
+    top: 20%;
+    z-index: 100;
+}

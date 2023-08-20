@@ -1,7 +1,7 @@
-import { LOADING } from "../constants/constants";
 
 
-export const FetchData = async () => {
+
+export const FetchData = async (LOADING) => {
 
     try {
         const loader = await fetch(LOADING);

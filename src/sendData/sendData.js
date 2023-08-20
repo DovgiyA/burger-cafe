@@ -1,6 +1,7 @@
 import { SENDING } from "../constants/constants";
 import { response } from "../utils/props-type";
 import PropTypes from 'prop-types';
+import { request } from "../utils/request";
 
 
 export const sendData = async (ordersData) => {
@@ -10,23 +11,11 @@ export const sendData = async (ordersData) => {
     }
     const jsonForSending = JSON.stringify({ingredients: ordersData});
     
-    try {
-      const sendIds = await fetch(SENDING, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: jsonForSending,
-      });
-
-      const resultToJSON = await sendIds.json();
-
-      if (sendIds.ok) {
-       
-        return resultToJSON;
-      }
-
-    } catch (e) {
-      return Promise.reject(e);
-    }
+    return await request(SENDING, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: jsonForSending,
+    }); 
   }
 
   sendData.propTypes = {    

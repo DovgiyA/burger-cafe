@@ -4,7 +4,6 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import { Modal } from '../Modal/Modal';
-import { ModalOverlay } from '../ModalOverlay/ModalOverlay';
 import { OrderDetails } from '../OrderDetails/OrderDetails';
 import { useDispatch, useSelector } from 'react-redux';
 import { BurgerCardContainer } from '../BurgerCardContainer/BurgerCardContainer';
@@ -42,7 +41,7 @@ export const BurgerConstructor  = ({className}) => {
            Оформить заказ
         </Button>              
       </div>}
-      {isOpen && (<Modal setIsOpen={setIsOpen}><ModalOverlay setIsOpen={setIsOpen} /><OrderDetails setIsOpen={setIsOpen} orderID={orderID?.order?.number} /></Modal>)}
+      {isOpen && (<Modal setIsOpen={setIsOpen}><OrderDetails setIsOpen={setIsOpen} orderID={orderID?.order?.number} /></Modal>)}
     </div>);  
   };
 

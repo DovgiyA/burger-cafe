@@ -24,7 +24,6 @@ export const Layout = () => {
           <BurgerIngredients className={styles.BurIngredients} />
           <BurgerConstructor  className={styles.BurConstructor} />
         </DndProvider>
-        <footer className={styles.footer}></footer>
       </div>
     );
   };

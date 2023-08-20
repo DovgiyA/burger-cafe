@@ -1,7 +1,7 @@
 import { ORDER_LOADING_STATUS } from "./actions";
 
 const initialState = {         
-        orderID: [],
+        orderID: {},
         oredersRequest: false,
         ordersFailed: false,
     };

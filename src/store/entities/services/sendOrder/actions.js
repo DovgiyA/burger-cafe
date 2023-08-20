@@ -14,17 +14,21 @@ import { sendData } from "../../../../sendData/sendData";
         dispatch({
           type: ORDER_LOADING_STATUS.GET_ORDER_REQUEST
         });
-        const data = await sendData(order);      
-          if (data) {
+        try {
+          const result = await sendData(order);     
+          if (result) {
             dispatch({
               type:  ORDER_LOADING_STATUS.ORDER_FINISHED,
-              order: data
+              order: result
             });
           } else {
             dispatch({
               type: ORDER_LOADING_STATUS.ORDER_FAILED
             });
           }
+        } catch (e) {
+          console.log(e);
+        }       
       }     
     };
   }

@@ -1,25 +1,17 @@
 import styles from "./IngredientDetails.module.css";
-import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from "react-redux";
-import { deleteIngredient } from "../../store/entities/services/burgerIngredients/actions";
-
+import { useSelector } from "react-redux";
 
 
 export const IngredientDetails = ({setIsOpen}) => {
-
-    const dispatch = useDispatch();
+  
     const currentIngredient = useSelector(store => store.currentIngredientsReducer.currentIngredientIDs);
     const {ingredients} = useSelector(store => store.ingredientsReducer);
 
     return (
         (<div className={styles.container} >
             <div className={styles.wrapper}>
-                <span className={styles.header}>Детали ингредиента</span>
-                <CloseIcon type="primary" onClick={() => {
-                    setIsOpen(false);
-                    dispatch(deleteIngredient())
-                    }} />
+                <span className={styles.header}>Детали ингредиента</span>                
             </div>            
             <div className={styles.img}><img src={ingredients[currentIngredient].image_large} alt="Ингредиент" /></div>
             <div className={styles.name}>{ingredients[currentIngredient].name}</div>

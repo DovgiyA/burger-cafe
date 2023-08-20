@@ -1,5 +1,4 @@
 import styles from "./OrderDetails.module.css";
-import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
 import imageSuccess from './imageSuccess.png';
 
@@ -8,7 +7,6 @@ export const OrderDetails = ({setIsOpen, orderID}) => {
   
     return (
         <div className={styles.container}>
-            <div className={styles.close} ><CloseIcon type="primary" onClick={() => setIsOpen(false)} /></div>
             <div className={styles.id}>{orderID}</div>
             <div className={styles.idText}>идентификатор заказа</div>
             <div className={styles.mark}><img src={imageSuccess} alt="Success" /></div>
@@ -20,6 +18,6 @@ export const OrderDetails = ({setIsOpen, orderID}) => {
 
 OrderDetails.propTypes = {    
     setIsOpen:  PropTypes.func.isRequired,
-    orderID: PropTypes.number
+    orderID: PropTypes.number.isRequired
   };
 

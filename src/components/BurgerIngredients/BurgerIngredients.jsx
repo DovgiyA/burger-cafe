@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from 'react';
 import styles from './BurgerIngredients.module.css';
 import { IngredientCards } from '../IngredientCards/ingredientCards';
 import PropTypes from 'prop-types';
-import { ModalOverlay } from '../ModalOverlay/ModalOverlay';
 import { Tabs } from '../Tabs/Tabs';
 import { Modal } from '../Modal/Modal';
 import { IngredientDetails } from '../IngredientDetails/IngredientDetails';
@@ -67,7 +66,7 @@ const R = (e) => {
             {ingredientsIDs.map(item => ingredients[item].type === 'main' ? (<IngredientCards key={item} ingredientsID={item} />) : null)}
           </section>
         </div>
-          {ingredientsIDs.length && isOpen && (<Modal setIsOpen={setIsOpen}><ModalOverlay setIsOpen={setIsOpen} /><IngredientDetails setIsOpen={setIsOpen} /></Modal>)}
+          {ingredientsIDs.length && isOpen && (<Modal setIsOpen={setIsOpen}><IngredientDetails setIsOpen={setIsOpen} /></Modal>)}
     </div>
 )}
 
