@@ -7,7 +7,8 @@ export const FetchData = async () => {
         const loader = await fetch(LOADING);
         const result = await loader.json();
 
-            if (loader.ok) {                
+            if (loader.ok) { 
+                          
                 return result.data;
             }      
 

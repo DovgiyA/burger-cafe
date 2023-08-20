@@ -2,74 +2,50 @@ import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-co
 import styles from './BurgerConstructor.module.css';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import { useContext, useEffect, useMemo, useReducer, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Modal } from '../Modal/Modal';
 import { ModalOverlay } from '../ModalOverlay/ModalOverlay';
 import { OrderDetails } from '../OrderDetails/OrderDetails';
-import { shape } from '../../utils/props-type';
-import { DataContext } from '../../services/dataContext';
-import { BurgerCard } from '../BurgerCard/BurgerCard';
-import { reducer } from '../../services/reducers';
-import { sendData } from '../../sendData/sendData';
+import { useDispatch, useSelector } from 'react-redux';
+import { BurgerCardContainer } from '../BurgerCardContainer/BurgerCardContainer';
+import { sendOrder } from '../../store/entities/services/sendOrder/actions';
 
 
 export const BurgerConstructor  = ({className}) => {
 
-  const initialState = { count: 0 };
-  const [state, dispatch] = useReducer(reducer, initialState, undefined);
+  const [isOpen, setIsOpen] = useState(false); 
+  const ingredients = useSelector(store => store.ingredientsReducer.ingredients);
+  const orderID = useSelector(store => store.order.orderID);
 
-  const [ordersID, setOrdersID] = useState();
-  const [isOpen, setIsOpen] = useState(false);
+    const { buns, ingredientsWithoutBuns } = useSelector(store => store.dnd);
 
-  const { data } = useContext(DataContext); 
-
-    const findBun = useMemo(() => {  
-      if (!data.length) {
-        return {};
-      }  
-      return data?.find(item => item.type === 'bun');      
-    }, [data]); 
-    
-    const ingredientsWithoutBuns = useMemo(() => {     
-      return data?.filter(item => item.type !== 'bun');
-    }, [data]);   
-
-    useEffect(() => {              
-      dispatch({type: 'set', payload: ingredientsWithoutBuns?.reduce((acc, item) => acc + item.price, 0)});        
-    }, [data]);  
-    
-    useEffect(() => {
-
-      const arr = data && data.map(item => item._id);   
-      
-
-      const response = async () => {
-        const result = await sendData(arr); 
-           
-        setOrdersID(result?.order.number);
-      }    
-
-      response();
-      
-    }, [data]);
+    const dispatch = useDispatch();
+  
+  useEffect(() => {
+    dispatch(sendOrder([...ingredientsWithoutBuns, buns]));
+  }, [isOpen]);  
+  
+ 
+    const totalPrice = () => {
+      return [buns, buns, ...ingredientsWithoutBuns].reduce((acc, item) => acc + ingredients[item]?.price, 0)
+    }
 
     return (    
     <div className={classNames(className, styles.container)}>
-      <BurgerCard bun={findBun} filteredData={ingredientsWithoutBuns} />
-      <div className={styles.ordersButton}>
+      <BurgerCardContainer />
+      {buns && <div className={styles.ordersButton}>
         <span>    
-          <span>{state.count}</span>
+          <span>{totalPrice()}</span>
           <CurrencyIcon type="primary" />
         </span>  
         <Button htmlType="button" type="primary" size="large" onClick={() => setIsOpen(true)}>
            Оформить заказ
-        </Button>     
-        {isOpen && (<Modal setIsOpen={setIsOpen}><ModalOverlay setIsOpen={setIsOpen} /><OrderDetails setIsOpen={setIsOpen} ordersID={ordersID} /></Modal>)}       
-    </div>
+        </Button>              
+      </div>}
+      {isOpen && (<Modal setIsOpen={setIsOpen}><ModalOverlay setIsOpen={setIsOpen} /><OrderDetails setIsOpen={setIsOpen} orderID={orderID?.order?.number} /></Modal>)}
     </div>);  
   };
 
-  BurgerConstructor.propTypes = {    
-    data: PropTypes.arrayOf(shape),
+  BurgerConstructor.propTypes = {  
     className: PropTypes.string.isRequired
   };

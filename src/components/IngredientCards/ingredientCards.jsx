@@ -1,31 +1,43 @@
 import styles from './IngredientCards.module.css';
-import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
-import { shape } from '../../utils/props-type';
-import { useContext } from 'react';
-import { DataContext } from '../../services/dataContext';
+import { useDrag } from 'react-dnd';
+import { useSelector } from 'react-redux';
 
  
-export const IngredientCards = ({type}) => {
+export const IngredientCards = ({ ingredientsID }) => { 
 
-  const { data } = useContext(DataContext);
+  const {ingredients} = useSelector(store => store.ingredientsReducer);
 
-    return(
-        <div className={styles.ingredients}>
-        {data && data.map(item => item.type === type ? 
-        (<div key={item._id} className={styles.cardCrator}>       
-          <img src={item.image} alt={item.name}></img> 
-          <div className={styles.price}>
-          {item.price}    
-          {<CurrencyIcon type="primary" />}  
+  const [, dragRef] = useDrag({
+    type: "ingredient",
+    item: {ingredientsID}
+})
+
+const ingredientsArr = useSelector(store => store.dnd.ingredientsWithoutBuns);
+const buns = useSelector(store => store.dnd.buns);
+const counter = ingredientsArr.reduce((acc, item) => {
+  if (item === ingredientsID) {
+    return acc + 1;
+  }
+  return acc;
+  }, 0);
+
+    return(     
+          <div className={styles.cardCrator} ref={dragRef}>       
+            <img src={ingredients[ingredientsID].image} alt={ingredients[ingredientsID]._id}></img> 
+            <div className={styles.price}>
+            {ingredients[ingredientsID].price}    
+            {<CurrencyIcon type="primary" />}  
+            </div>     
+            <span>{ingredients[ingredientsID].name}</span>
+            {buns === ingredientsID 
+            ? (<Counter count={1} size="default" extraClass="m-1" />) : counter 
+            ? (<Counter count={counter} size="default" extraClass="m-1" />) : null}
           </div>     
-          <span>{item.name}</span>
-        </div>) : null)} 
-        </div>
     )
 }
 
-IngredientCards.propTypes = {    
-  data: PropTypes.arrayOf(shape),
-  type: PropTypes.string.isRequired
+IngredientCards.propTypes = {  
+  ingredientsID: PropTypes.string.isRequired
 };

@@ -2,7 +2,9 @@ import { useEffect } from 'react';
 import './App.css';
 import { Layout } from './components/Layout/Layout';
 import WebFont from 'webfontloader';
-import { DataContextProvider } from './services/DataContextProvider';
+import { Provider } from 'react-redux';
+import { store } from './store';
+
 
 
 function App() {  
@@ -16,9 +18,9 @@ function App() {
    }, []);
 
   return (
-    <DataContextProvider>
+    <Provider store={store}>
       <Layout />
-    </DataContextProvider>
+    </Provider>
   );
  
 }
