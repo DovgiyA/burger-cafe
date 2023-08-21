@@ -1,6 +1,6 @@
+import { useSelector } from "react-redux";
 import styles from "./IngredientDetails.module.css";
 import PropTypes from 'prop-types';
-import { useSelector } from "react-redux";
 
 
 export const IngredientDetails = ({setIsOpen}) => {

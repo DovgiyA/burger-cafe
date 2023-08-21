@@ -17,9 +17,9 @@ export const BurgerConstructor  = ({className}) => {
   const ingredients = useSelector(store => store.ingredientsReducer.ingredients);
   const orderID = useSelector(store => store.order.orderID);
 
-    const { buns, ingredientsWithoutBuns } = useSelector(store => store.dnd);
+  const { buns, ingredientsWithoutBuns } = useSelector(store => store.dnd);
 
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
   
   useEffect(() => {
     dispatch(sendOrder([...ingredientsWithoutBuns, buns]));
@@ -43,7 +43,7 @@ export const BurgerConstructor  = ({className}) => {
            Оформить заказ
         </Button>              
       </div>}
-      {isOpen && (<Modal setIsOpen={setIsOpen}><OrderDetails setIsOpen={setIsOpen} orderID={orderID?.order?.number} /></Modal>)}
+      {isOpen && (<Modal setIsOpen={setIsOpen}><OrderDetails setIsOpen={setIsOpen} orderID={orderID} /></Modal>)}
     </div>);  
   };
 

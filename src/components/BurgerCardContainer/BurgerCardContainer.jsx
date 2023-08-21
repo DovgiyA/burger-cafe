@@ -4,7 +4,7 @@ import { useDrop } from "react-dnd";
 import { useDispatch, useSelector } from 'react-redux';
 import { dragBun, dragIngredient } from '../../store/entities/services/burgerConstructor/actions';
 import { BurgerCards } from '../BurgerCards/BurgerCards';
-import { v4 as uuidv4 } from 'uuid';
+
 
 
 export const BurgerCardContainer = () => { 
@@ -32,7 +32,7 @@ export const BurgerCardContainer = () => {
         thumbnail={ingredients[buns]?.image}
       />}</div>
       <div className={styles.card} >    
-        {ingredientsWithoutBuns?.map((ingredientsID, index) => <BurgerCards key={uuidv4()} ingredientsID={ingredientsID} index={index} />)}        
+        {ingredientsWithoutBuns?.map((ingredientsID, index) => <BurgerCards key={ingredients[ingredientsID].item} ingredientsID={ingredientsID} index={index} />)}        
       </div>
       <div className={styles.buns}>        
        {buns && <ConstructorElement

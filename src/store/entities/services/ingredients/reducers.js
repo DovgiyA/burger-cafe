@@ -1,4 +1,5 @@
 import { INGREDIENTS_LOADING_STATUS } from "./actions";
+import { v4 as uuidv4 } from 'uuid';
 
 const initialState = {
         ingredients: {},
@@ -19,6 +20,7 @@ export const ingredientsReducer = (state = initialState, action) => {
     }
     case INGREDIENTS_LOADING_STATUS.INGREDIENTS_FINISHED: {
       return { ...state, ingredients: action.ingredients.reduce((acc, ingredient) => {
+        ingredient.item = uuidv4();
         acc[ingredient._id] = ingredient;
         return acc;
       }, {}), ingredientsIDs: action.ingredients.map(({ _id }) => _id), ingredientsFailed: false, ingredientsRequest: false };
