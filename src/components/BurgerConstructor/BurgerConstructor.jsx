@@ -1,55 +1,52 @@
-import { ConstructorElement, Button, CurrencyIcon, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './BurgerConstructor.module.css';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Modal } from '../Modal/Modal';
-import { ModalOverlay } from '../ModalOverlay/ModalOverlay';
 import { OrderDetails } from '../OrderDetails/OrderDetails';
-import { shape } from '../../utils/props-type';
+import { useDispatch, useSelector } from 'react-redux';
+import { BurgerCardContainer } from '../BurgerCardContainer/BurgerCardContainer';
+import { sendOrder } from '../../store/entities/services/sendOrder/actions';
+import { resetIngredient } from '../../store/entities/services/burgerConstructor/actions';
 
 
-export const BurgerConstructor  = ({className, data}) => {
-  const [isOpen, setIsOpen] = useState(false);
+export const BurgerConstructor  = ({className}) => {
+
+  const [isOpen, setIsOpen] = useState(false); 
+  const ingredients = useSelector(store => store.ingredientsReducer.ingredients);
+  const orderID = useSelector(store => store.order.orderID);
+
+  const { buns, ingredientsWithoutBuns } = useSelector(store => store.dnd);
+
+  const dispatch = useDispatch();
+  
+  useEffect(() => {
+    dispatch(sendOrder([...ingredientsWithoutBuns, buns]));
+    dispatch(resetIngredient());
+  }, [isOpen]);  
+  
+ 
+    const totalPrice = () => {
+      return [buns, buns, ...ingredientsWithoutBuns].reduce((acc, item) => acc + ingredients[item]?.price, 0)
+    }
 
     return (    
     <div className={classNames(className, styles.container)}>
-      <div className={styles.buns}><ConstructorElement
-        type="top"
-        isLocked={true}
-        text="Краторная булка N-200i (верх)"
-        price={200}
-        thumbnail={"https://code.s3.yandex.net/react/code/bun-02.png"}
-      /></div>
-    <div className={styles.card}>    
-    {data && data.map(item => <span className={styles.ingredient} key={item._id}><DragIcon type="primary" />
-    <ConstructorElement         
-      text={item.name}
-      price={item.price}
-      thumbnail={item.image}
-    /></span>)}        
-      </div>
-      <div className={styles.buns}>        
-        <ConstructorElement
-        type="bottom"
-        isLocked={true}
-        text="Краторная булка N-200i (низ)"
-        price={200}
-        thumbnail={"https://code.s3.yandex.net/react/code/bun-02.png"}
-      /></div>
-      <div className={styles.ordersButton}>
+      <BurgerCardContainer />
+      {buns && <div className={styles.ordersButton}>
         <span>    
-          <span>610</span>
+          <span>{totalPrice()}</span>
           <CurrencyIcon type="primary" />
         </span>  
         <Button htmlType="button" type="primary" size="large" onClick={() => setIsOpen(true)}>
            Оформить заказ
-        </Button>     
-        {isOpen && (<Modal setIsOpen={setIsOpen}><ModalOverlay setIsOpen={setIsOpen} /><OrderDetails setIsOpen={setIsOpen} /></Modal>)}       
-    </div>
+        </Button>              
+      </div>}
+      {isOpen && (<Modal setIsOpen={setIsOpen}><OrderDetails setIsOpen={setIsOpen} orderID={orderID} /></Modal>)}
     </div>);  
   };
 
-  BurgerConstructor.propTypes = {    
-    data: PropTypes.arrayOf(shape) 
+  BurgerConstructor.propTypes = {  
+    className: PropTypes.string.isRequired
   };

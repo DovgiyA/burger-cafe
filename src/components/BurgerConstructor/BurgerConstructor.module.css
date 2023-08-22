@@ -1,33 +1,5 @@
-.card {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;  
-    padding: 1rem;
-    max-height: 465px;
-    overflow-y: auto;
-    scrollbar-gutter: stable;  
-}
-
-.card::-webkit-scrollbar {
-    width: 16px;
-  }
-  
-  .card::-webkit-scrollbar-track {
-    background-color: rgba(47, 47, 55, 1);
-    border-radius: 100px;
-  }
-  
-  .card::-webkit-scrollbar-thumb {
-    background-color: rgba(133, 133, 173, 1);
-    border-radius: 100px;
-  }
-
-.container {
+.container { 
     padding-top: 40px;
-}
-
-.buns {
-    padding: 10px 20px 10px 40px; 
 }
 
 .ordersButton {

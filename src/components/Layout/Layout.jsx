@@ -2,21 +2,30 @@ import { AppHeader } from "../Header/AppHeader";
 import { BurgerIngredients } from "../BurgerIngredients/BurgerIngredients";
 import styles from "./Layout.module.css";
 import { BurgerConstructor } from "../BurgerConstructor/BurgerConstructor";
-import PropTypes from 'prop-types';
-import { shape } from "../../utils/props-type";
+import { useDispatch } from "react-redux";
+import { getIngredients } from "../../store/entities/services/ingredients/actions";
+import { useEffect } from "react";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
-export const Layout = ({data}) => {
+
+export const Layout = () => {
+
+  const dispatch = useDispatch();
+  
+  useEffect(() => {
+    dispatch(getIngredients());
+  }, [dispatch]);
 
     return (
       <div className={styles.wrapper}>
         <AppHeader  className={styles.header} />
-        <BurgerIngredients className={styles.BurIngredients} data={data} />
-        <BurgerConstructor  className={styles.BurConstructor} data={data} />
-        <footer className={styles.footer}></footer>
+        <DndProvider backend={HTML5Backend}>
+          <BurgerIngredients className={styles.BurIngredients} />
+          <BurgerConstructor  className={styles.BurConstructor} />
+        </DndProvider>
       </div>
     );
   };
 
-  Layout.propTypes = { 
-    data: PropTypes.arrayOf(shape)
-  };
+ 

@@ -1,35 +1,36 @@
+import { useSelector } from "react-redux";
 import styles from "./IngredientDetails.module.css";
-import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
-import { shape } from "../../utils/props-type";
 
 
-export const IngredientDetails = ({setIsOpen, data}) => {
+export const IngredientDetails = ({setIsOpen}) => {
+  
+    const currentIngredient = useSelector(store => store.currentIngredientsReducer.currentIngredientIDs);
+    const {ingredients} = useSelector(store => store.ingredientsReducer);
 
     return (
         (<div className={styles.container} >
             <div className={styles.wrapper}>
-                <span className={styles.header}>Детали ингредиента</span>
-                <CloseIcon type="primary" onClick={() => setIsOpen(false)} />
+                <span className={styles.header}>Детали ингредиента</span>                
             </div>            
-            <div className={styles.img}><img src={data[0].image_large} alt="Ингредиент" /></div>
-            <div className={styles.name}>{data[0].name}</div>
+            <div className={styles.img}><img src={ingredients[currentIngredient].image_large} alt="Ингредиент" /></div>
+            <div className={styles.name}>{ingredients[currentIngredient].name}</div>
             <div className={styles.macronutrients}>
                 <div>
                     <div className={styles.gap}>Калории,ккал</div>
-                    <div>{data[0].calories}</div>
+                    <div>{ingredients[currentIngredient].calories}</div>
                 </div>
                 <div>
                     <div  className={styles.gap}>Белки, г</div>
-                    <div>{data[0].proteins}</div>
+                    <div>{ingredients[currentIngredient].proteins}</div>
                 </div>
                 <div>
                     <div  className={styles.gap}>Жиры, г</div>
-                    <div>{data[0].fat}</div>
+                    <div>{ingredients[currentIngredient].fat}</div>
                 </div>
                 <div>
                     <div  className={styles.gap}>Углеводы, г</div>
-                    <div>{data[0].carbohydrates}</div>
+                    <div>{ingredients[currentIngredient].carbohydrates}</div>
                 </div>
                
             </div>
@@ -37,7 +38,6 @@ export const IngredientDetails = ({setIsOpen, data}) => {
     )
 }
 
-IngredientDetails.propTypes = {    
-    data: PropTypes.arrayOf(shape),
-      setIsOpen:  PropTypes.func.isRequired,
+IngredientDetails.propTypes = { 
+    setIsOpen:  PropTypes.func.isRequired,
   };

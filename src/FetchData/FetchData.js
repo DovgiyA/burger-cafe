@@ -1,21 +1,19 @@
-import { LOADING } from "../constants/constants";
 
 
-export const FetchData = async () => {
 
+export const FetchData = async (LOADING) => {
 
     try {
         const loader = await fetch(LOADING);
         const result = await loader.json();
 
-            if (loader.ok) {                
+            if (loader.ok) { 
+                          
                 return result.data;
-            } else {
-                alert("Ошибка: " + result.status);
             }      
 
     } catch(e) {
-        console.log(e);
+        return Promise.reject(e);
     }
    
 }

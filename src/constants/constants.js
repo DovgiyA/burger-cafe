@@ -1,3 +1,5 @@
+const BASE_URL = 'https://norma.nomoreparties.space/api';
 
+export const LOADING = BASE_URL + '/ingredients';
 
-export const LOADING = 'https://norma.nomoreparties.space/api/ingredients';
+export const SENDING = BASE_URL + '/orders';

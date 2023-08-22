@@ -1,12 +1,15 @@
-.container {
-  position: relative;
-}
 
 .scrollBar {
-    padding: 1rem;
-    max-height: 100vh;
-    overflow-y: auto;
-    scrollbar-gutter: stable;
+  position: relative; 
+  padding: 1rem;
+  max-height: 100vh;
+  overflow-y: auto;
+  scrollbar-gutter: stable; 
+}
+
+.section {
+    display: grid;
+    grid-template-columns: auto auto;    
   }
 
   .scrollBar::-webkit-scrollbar {
@@ -27,12 +30,8 @@
     padding-bottom: 20px;
   }
 
-  .h2 {
+  .h2 {   
     padding-top: 20px;
     padding-bottom: 20px;
   }
-
   
-.m-1 {
-  position: absolute; 
-}

@@ -1,44 +1,76 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import styles from './BurgerIngredients.module.css';
-import classNames from 'classnames';
-import { BurgerCards } from '../BurgerCards/BurgerCards';
+import { IngredientCards } from '../IngredientCards/ingredientCards';
 import PropTypes from 'prop-types';
-import { ModalOverlay } from '../ModalOverlay/ModalOverlay';
 import { Tabs } from '../Tabs/Tabs';
 import { Modal } from '../Modal/Modal';
 import { IngredientDetails } from '../IngredientDetails/IngredientDetails';
-import { shape } from '../../utils/props-type';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteIngredient, putIngredient } from '../../store/entities/services/burgerIngredients/actions';
 
 
-export const BurgerIngredients = ({className, data}) => {
+export const BurgerIngredients = ({className}) => {
 
+  const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
-    const [current, setCurrent] = useState('one');
-    const [ingredient, setIngredient] = useState([])
+  const {ingredients, ingredientsIDs} = useSelector(store => store.ingredientsReducer);
+  const [current, setCurrent] = useState('one');
+ 
 
-    const clickHandler = (event) => {     
-      setIngredient(data.filter(item => item.name === event.target.alt ? item : null));
-      setIsOpen(true);            
-    }
+  const bunsRef = useRef(null);
+  const souceRef = useRef(null);
+  const mainRef = useRef(null);  
+
+  useEffect(() => {
+    if (!isOpen) {
+      dispatch(deleteIngredient())
+    }  
+   
+  }, [isOpen, dispatch]);
+
+
+const R = (e) => {
+  let scrollTop = e.currentTarget.scrollTop;
+  if (scrollTop > bunsRef.current?.getBoundingClientRect().bottom && scrollTop < souceRef.current?.getBoundingClientRect().bottom) {
+    setCurrent('one')
+  }
+  if (scrollTop > souceRef.current?.getBoundingClientRect().bottom && scrollTop < mainRef.current?.getBoundingClientRect().bottom) {
+    setCurrent('two')
+  }
+  if (scrollTop > mainRef.current?.getBoundingClientRect().bottom) {
+    setCurrent('three')
+  }
+}
+
+  const clickHandler = (event) => {     
+      const selectedIngredient = event.target.alt;
+      dispatch(putIngredient(selectedIngredient))      
+      setIsOpen(true);  
+    }     
   
     return (
-    <div className={classNames(className, styles.container)} >
+    <div className={className} >
         <h1 className={styles.h1}>Соберите бургер</h1>
-        <Tabs current={current} setCurrent={setCurrent} /> 
-      <section className={styles.scrollBar} onClick={clickHandler}>
-        <h2 className={styles.h2}>Булки</h2> 
-          <BurgerCards type={'bun'} data={data} />
-        <h2 className={styles.h2}>Соусы</h2>
-          <BurgerCards type={'sauce'} data={data} />
-        <h2 className={styles.h2}>Начинки</h2>
-          <BurgerCards type={'main'} data={data} />
-      </section>    
-        {ingredient.length && isOpen && (<Modal setIsOpen={setIsOpen}><ModalOverlay setIsOpen={setIsOpen} /><IngredientDetails setIsOpen={setIsOpen} data={ingredient} /></Modal>)}
+        <Tabs current={current} setCurrent={setCurrent} />         
+      <div className={styles.scrollBar} onScroll={R} >
+          <h2 className={styles.h2} ref={bunsRef}>Булки</h2> 
+          <section className={styles.section} onClick={clickHandler}>                
+            {ingredientsIDs.map(item => ingredients[item].type === 'bun' ? (<IngredientCards key={item} ingredientsID={item} />) : null)}        
+          </section>
+          <h2 className={styles.h2} ref={souceRef}  >Соусы</h2> 
+          <section className={styles.section} onClick={clickHandler} >                     
+            {ingredientsIDs.map(item => ingredients[item].type === 'sauce' ? (<IngredientCards key={item} ingredientsID={item} />) : null)}
+          </section>
+          <h2 className={styles.h2} ref={mainRef} >Начинки</h2>    
+          <section className={styles.section} onClick={clickHandler} >               
+            {ingredientsIDs.map(item => ingredients[item].type === 'main' ? (<IngredientCards key={item} ingredientsID={item} />) : null)}
+          </section>
+        </div>
+          {ingredientsIDs.length && isOpen && (<Modal setIsOpen={setIsOpen}><IngredientDetails setIsOpen={setIsOpen} /></Modal>)}
     </div>
 )}
 
-BurgerIngredients.propTypes = {    
-  data: PropTypes.arrayOf(shape),
+BurgerIngredients.propTypes = {
   className: PropTypes.string.isRequired
 };
  

@@ -1,15 +1,10 @@
 .wrapper {
     display: grid;
     grid-template-columns: 1fr auto auto 1fr;
-    grid-template-rows: auto auto auto;
+    grid-template-rows: auto auto;
     grid-template-areas: 
     '. header header .'
-    '. BurIngredients BurConstructor .'
-    'footer footer footer footer';
-}
-
-.footer {
-  grid-area: footer;
+    '. BurIngredients BurConstructor .';
 }
 
 .header {
