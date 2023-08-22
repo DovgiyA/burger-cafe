@@ -7,15 +7,15 @@ import { sendData } from "../../../../sendData/sendData";
     ORDER_FAILED: "ORDER_FAILED"   
   };
 
-  export function sendOrder(order) {
+  export function sendOrder(ingredientsWithoutBuns, buns) {
    
     return async function(dispatch) {
-      if (order.length > 1) {
+      if (ingredientsWithoutBuns.length >= 1) {
         dispatch({
           type: ORDER_LOADING_STATUS.GET_ORDER_REQUEST
         });
         try {
-          const result = await sendData(order);     
+          const result = await sendData(ingredientsWithoutBuns, buns);     
           if (result) {
             dispatch({
               type:  ORDER_LOADING_STATUS.ORDER_FINISHED,

@@ -7,6 +7,7 @@ import { useRef } from 'react';
 import PropTypes from 'prop-types';
 
 
+
 export const BurgerCards = ({ingredientsID, index}) => {
     
     const ingredients = useSelector(store => store.ingredientsReducer.ingredients);
@@ -22,11 +23,14 @@ export const BurgerCards = ({ingredientsID, index}) => {
     });
     
     const moveCard = (id, dragIndex, hoverIndex) => {       
-        const newArr = [...dndIngredients]
+        const newArr = dndIngredients.map(ingredient => ingredient.item) 
+      
         newArr.splice(dragIndex, 1,);
         newArr.splice(hoverIndex, 0, id);
 
-        dispatch(sortIngredient(newArr)); 
+        const arr = dndIngredients.map(ingredient => dndIngredients[newArr.indexOf(ingredient.item)])
+           
+        dispatch(sortIngredient(arr)); 
       };
 
     const [, dropRef] = useDrop({
@@ -38,7 +42,7 @@ export const BurgerCards = ({ingredientsID, index}) => {
             if (!ref.current) {
                 return;
             }
-            const id = item.ingredientsID;
+            const id = item.ingredientsID.item;
             const dragIndex = item.index;
             const hoverIndex = index;
             if (dragIndex === hoverIndex) {
@@ -56,15 +60,18 @@ export const BurgerCards = ({ingredientsID, index}) => {
         <span className={styles.ingredient}  ref={dragDropRef} >
     <DragIcon type="primary" />
     <ConstructorElement         
-      text={ingredients[ingredientsID]?.name}
-      price={ingredients[ingredientsID]?.price}
-      thumbnail={ingredients[ingredientsID]?.image}
+      text={ingredients[ingredientsID.ingredient]?.name}
+      price={ingredients[ingredientsID.ingredient]?.price}
+      thumbnail={ingredients[ingredientsID.ingredient]?.image}
       handleClose={() => dispatch(deleteBun(ingredientsID))}
     /></span>
     )
 }
 
 BurgerCards.propTypes = {    
-    ingredientsID: PropTypes.string.isRequired,
+    ingredientsID: PropTypes.shape({
+        ingredient: PropTypes.string.isRequired,
+        item: PropTypes.string.isRequired
+      }).isRequired,
     index: PropTypes.number.isRequired
   };

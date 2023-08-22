@@ -32,7 +32,7 @@ export const BurgerCardContainer = () => {
         thumbnail={ingredients[buns]?.image}
       />}</div>
       <div className={styles.card} >    
-        {ingredientsWithoutBuns?.map((ingredientsID, index) => <BurgerCards key={ingredients[ingredientsID].item} ingredientsID={ingredientsID} index={index} />)}        
+        {ingredientsWithoutBuns?.map((ingredientDND, index) => <BurgerCards key={ingredientDND.item} ingredientsID={ingredientDND} index={index} />)}        
       </div>
       <div className={styles.buns}>        
        {buns && <ConstructorElement

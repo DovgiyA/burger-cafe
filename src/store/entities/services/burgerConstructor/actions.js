@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid';
 
 export const DRAG_INGREDIENT = {
    DRAG_INGREDIENT_IN_CONSTRUCTOR: 'dndReducer/DRAG_INGREDIENT_IN_CONSTRUCTOR',
@@ -9,7 +10,9 @@ export const DRAG_INGREDIENT = {
 
   export const dragIngredient = (ingredient) => ({
     type: DRAG_INGREDIENT.DRAG_INGREDIENT_IN_CONSTRUCTOR,
-    payload: ingredient
+    payload: {ingredient,
+    item: uuidv4()
+  }
   });
 
   export const dragBun = (ingredient) => ({
@@ -22,9 +25,9 @@ export const DRAG_INGREDIENT = {
     payload: ingredient
   });
 
-  export const sortIngredient = (ingredient) => ({
+  export const sortIngredient = (ingredientArr) => ({    
     type: DRAG_INGREDIENT.SORT_IN_CONSTRUCTOR,
-    payload: ingredient
+    payload: ingredientArr
   });
 
   export const resetIngredient = () => ({
