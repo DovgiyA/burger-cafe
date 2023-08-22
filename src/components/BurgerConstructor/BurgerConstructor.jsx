@@ -22,13 +22,13 @@ export const BurgerConstructor  = ({className}) => {
   const dispatch = useDispatch();
   
   useEffect(() => {
-    dispatch(sendOrder([...ingredientsWithoutBuns, buns]));
+    dispatch(sendOrder(ingredientsWithoutBuns, buns));
     dispatch(resetIngredient());
   }, [isOpen]);  
   
  
     const totalPrice = () => {
-      return [buns, buns, ...ingredientsWithoutBuns].reduce((acc, item) => acc + ingredients[item]?.price, 0)
+      return ingredientsWithoutBuns.reduce((acc, item) => acc + ingredients[item?.ingredient]?.price, ingredients[buns].price*2)
     }
 
     return (    
