@@ -1,9 +1,8 @@
 import { useSelector } from "react-redux";
 import styles from "./IngredientDetails.module.css";
-import PropTypes from 'prop-types';
 
 
-export const IngredientDetails = ({setIsOpen}) => {
+export const IngredientDetails = () => {
   
     const currentIngredient = useSelector(store => store.currentIngredientsReducer.currentIngredientIDs);
     const {ingredients} = useSelector(store => store.ingredientsReducer);
@@ -37,7 +36,3 @@ export const IngredientDetails = ({setIsOpen}) => {
         </div>)
     )
 }
-
-IngredientDetails.propTypes = { 
-    setIsOpen:  PropTypes.func.isRequired,
-  };

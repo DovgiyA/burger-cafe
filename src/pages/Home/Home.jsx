@@ -6,11 +6,11 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
 
-export const HomePage = () => { 
+export default function HomePage() {  
 
     return (
       <div className={styles.wrapper}>
-        <AppHeader  className={styles.header} />
+        <AppHeader className={styles.header} />
         <DndProvider backend={HTML5Backend}>
           <BurgerIngredients className={styles.BurIngredients} />
           <BurgerConstructor  className={styles.BurConstructor} />

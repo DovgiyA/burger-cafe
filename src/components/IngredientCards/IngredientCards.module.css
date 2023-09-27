@@ -28,3 +28,13 @@
   .m-1 {
     position: absolute; 
   }
+
+  .active {
+    color: rgba(133, 133, 173, 1);
+    text-decoration: none;
+  }
+  
+  .pending {
+    color: white;
+    text-decoration: none;
+  }

@@ -9,21 +9,24 @@ export const  AppHeader  = ({className}) => {
       <header className={styles.main}>       
           <span className={styles.constructor}>
             <BurgerIcon type="primary" />
-            <NavLink to="/" className={styles.link}>
-            Конструктор
+            <NavLink to="/" className={({ isActive, isPending }) =>
+    isPending ? styles.pending : isActive ? styles.active : styles.pending} >
+            <span className={styles.link}>Конструктор</span>
             </NavLink>
           </span>
           <span className={styles.orders}>
             <ListIcon type="primary" />
-            <NavLink to="/" className={styles.link}>
-            Лента заказов
+            <NavLink to="feed" className={({ isActive, isPending }) =>
+    isPending ? styles.pending : isActive ? styles.active : styles.pending }>
+            <span className={styles.link}>Лента заказов</span>
             </NavLink>
           </span>
           <span className={styles.logo}><Logo /></span>
           <span className={styles.account}>
             <ProfileIcon type="primary" />
-            <NavLink to="/" className={styles.link}>
-            Личный кабинет
+            <NavLink to="/profile" className={({ isActive, isPending }) =>
+    isPending ? styles.pending : isActive ? styles.active : styles.pending }>
+            <span className={styles.link}>Личный кабинет</span>
             </NavLink>
           </span>        
        

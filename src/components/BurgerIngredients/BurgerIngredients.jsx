@@ -3,8 +3,6 @@ import styles from './BurgerIngredients.module.css';
 import { IngredientCards } from '../IngredientCards/ingredientCards';
 import PropTypes from 'prop-types';
 import { Tabs } from '../Tabs/Tabs';
-import { Modal } from '../Modal/Modal';
-import { IngredientDetails } from '../IngredientDetails/IngredientDetails';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteIngredient, putIngredient } from '../../store/entities/services/burgerIngredients/actions';
 
@@ -65,8 +63,7 @@ const R = (e) => {
           <section className={styles.section} onClick={clickHandler} >               
             {ingredientsIDs.map(item => ingredients[item].type === 'main' ? (<IngredientCards key={item} ingredientsID={item} />) : null)}
           </section>
-        </div>
-          {ingredientsIDs.length && isOpen && (<Modal setIsOpen={setIsOpen}><IngredientDetails setIsOpen={setIsOpen} /></Modal>)}
+        </div>          
     </div>
 )}
 

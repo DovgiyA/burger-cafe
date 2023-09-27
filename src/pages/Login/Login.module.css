@@ -18,3 +18,35 @@
   .BurConstructor {
     grid-area: BurConstructor;
   }
+
+  .container {   
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: JetBrains Mono;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+  }
+
+  .entrance {
+    padding-top: 50px;
+  }
+
+  .input {
+    padding-top: 24px;
+  } 
+
+  .register {
+    display: flex;
+    padding-top: 80px;
+    gap: 8px;
+  }
+
+  .password {
+    display: flex;
+    gap: 8px;
+    padding-top: 16px;
+  }

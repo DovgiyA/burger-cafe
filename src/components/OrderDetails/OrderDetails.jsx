@@ -1,8 +1,18 @@
 import styles from "./OrderDetails.module.css";
-import PropTypes from 'prop-types';
+import { useEffect } from 'react';
 import imageSuccess from './imageSuccess.png';
+import { useDispatch, useSelector } from "react-redux";
+import { resetIngredient } from "../../store/entities/services/burgerConstructor/actions";
 
-export const OrderDetails = ({orderID}) => {    
+export const OrderDetails = () => { 
+    
+    const orderID = useSelector(store => store.order.orderID);
+    const dispatch = useDispatch();
+
+    useEffect(() => {     
+        dispatch(resetIngredient());
+      }, []);  
+      
   
     return (
         <div className={styles.container}>
@@ -15,7 +25,4 @@ export const OrderDetails = ({orderID}) => {
     )
 }
 
-OrderDetails.propTypes = {  
-    orderID: PropTypes.object.isRequired
-  };
 

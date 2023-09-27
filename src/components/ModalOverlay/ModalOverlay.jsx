@@ -1,14 +1,10 @@
 import styles from './ModalOverlay.module.css';
-import PropTypes from 'prop-types';
 
 
-export const ModalOverlay = ({setIsOpen}) => {   
+export const ModalOverlay = () => {   
     
     return (
-        <div className={styles.overlay} onClick={() => setIsOpen(false)} ></div>
+        <div className={styles.overlay} ></div>
     )
 }
 
-ModalOverlay.propTypes = {    
-    setIsOpen:  PropTypes.func.isRequired,
-  };

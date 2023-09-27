@@ -7,7 +7,7 @@ import styles from './Modal.module.css';
 
 
 
-export const Modal = ({children, setIsOpen}) => {
+export const Modal = ({children, onClick}) => {
   
     
 
@@ -15,7 +15,7 @@ export const Modal = ({children, setIsOpen}) => {
       const onKey = (event) => {
        
         if (event.key === "Escape") {
-          setIsOpen(false);
+          onClick();
         }
       }
         window.addEventListener("keydown", onKey);
@@ -31,13 +31,11 @@ export const Modal = ({children, setIsOpen}) => {
     
     return createPortal(
       (<div>
-        <ModalOverlay setIsOpen={setIsOpen} />
+        <ModalOverlay />
       
         <div>
         {children}
-          <span className={styles.close}><CloseIcon type="primary" onClick={() => {
-                    setIsOpen(false);                    
-                    }} /></span>      
+          <span className={styles.close}><CloseIcon type="primary" onClick={onClick} /></span>      
         </div>
             
       </div>),
@@ -47,5 +45,5 @@ export const Modal = ({children, setIsOpen}) => {
 
 Modal.propTypes = {    
     children: PropTypes.element.isRequired,
-    setIsOpen: PropTypes.func.isRequired,
+    onClick: PropTypes.func.isRequired,
   };
