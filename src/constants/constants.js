@@ -6,6 +6,8 @@ export const SENDING = BASE_URL + '/orders';
 
 export const CHECK = BASE_URL + '/password-reset';
 
+export const RESET = BASE_URL + '/password-reset/reset';
+
 export const AUTHORIZATION = BASE_URL + '/auth/login';
 
 export const REGISTRATION = BASE_URL + '/auth/register';

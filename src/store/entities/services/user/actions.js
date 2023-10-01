@@ -3,6 +3,7 @@ import { fetchWithRefresh, request } from "../../../../utils/request";
 
 export const  SET_USER = "SET_USER";
 export const  IS_CHECKED = "IS_CHECKED";
+export const IS_SUCCESS = 'IS_SUCCESS';
 
   export const setUser = (user) => ({
     type: SET_USER,
@@ -33,6 +34,11 @@ export const  IS_CHECKED = "IS_CHECKED";
 
   export const setAuthChecked = (value) => ({
     type: IS_CHECKED,
+    payload: value
+  })
+
+  export const isSuccess = (value) =>({
+    type: IS_SUCCESS,
     payload: value
   })
 
@@ -76,4 +82,19 @@ export const  IS_CHECKED = "IS_CHECKED";
   localStorage.removeItem("refreshToken");
   dispatch(setUser(null));
   }  
+}
+
+export function reset(api, value) { 
+  return async function(dispatch) {      
+    try {        
+      const result = await request(api, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json'},
+        body: JSON.stringify(value),
+      });    
+       dispatch(isSuccess(result.success))
+    } catch(e) {
+      console.log(e);
+    }     
+  };
 }

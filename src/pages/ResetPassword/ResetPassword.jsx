@@ -1,22 +1,33 @@
 import { AppHeader } from "../../components/Header/AppHeader";
 import styles from "./ResetPassword.module.css";
 import { Button, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
-import { NavLink } from "react-router-dom";
-import { useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { RESET } from "../../constants/constants";
+import { isSuccess, reset } from "../../store/entities/services/user/actions";
+import { useForm } from "../../hooks/useForm";
+import { useEffect } from 'react';
 
 
 export default function ResetPasswordPage() {
 
-  const [form, setValue] = useState({
-    passwordFromLetter: "", 
-    password: "" 
-  });
-  const onChange = e => {
-    setValue({...form, [e.target.name]: e.target.value});
-  }
+  const dispatch = useDispatch(); 
+  const navigate = useNavigate()
+  const success = useSelector(store => store.user.success); 
+  useEffect(() => {
+    if (success) {
+      navigate("/reset-password");
+      dispatch(isSuccess(false))
+    }
+  }, [success]); 
 
-  const onSubmit = e => {
-    setValue({email: "", password: ""});
+  const {values, handleChange, setValues} = useForm({password: "", token: ""});
+
+  const sendForm = e => {
+    e.preventDefault();
+    dispatch(reset(RESET, values))
+    setValues({password: "", token: ""});
+    
   }
 
     return (<>
@@ -25,12 +36,14 @@ export default function ResetPasswordPage() {
       </div>
       <div className={styles.container}>
         <h1 className={styles.entrance}>Восстановление пароля</h1>
-        <span className={styles.input}><PasswordInput name={'password'} onChange={onChange} placeholder={'Введите новый пароль'} /></span>
-        <span className={styles.input} ><PasswordInput name={'passwordFromLetter'} onChange={onChange} placeholder={'Введите код из письма'} /></span>       
-        <span className={styles.input}><Button onSubmit={onSubmit}>Сохранить</Button></span>         
+        <form className={styles.form} onSubmit={sendForm}> 
+          <span className={styles.input}><PasswordInput name={'password'} value={values.password} onChange={handleChange} placeholder={'Введите новый пароль'} /></span>
+          <span className={styles.input} ><PasswordInput name={'token'} value={values.token} onChange={handleChange} placeholder={'Введите код из письма'} /></span>       
+          <span className={styles.input}><Button htmlType="submit">Сохранить</Button></span>         
+        </form>
         <div className={styles.password}>
           Вспомнили пароль?
-          <NavLink to='/' >Войти</NavLink>
+          <NavLink to='/login' >Войти</NavLink>
         </div>
       </div>
       </>);

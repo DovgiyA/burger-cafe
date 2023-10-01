@@ -1,10 +1,12 @@
 import styles from './ModalOverlay.module.css';
 
 
-export const ModalOverlay = () => {   
+export const ModalOverlay = ({onClick}) => { 
+    
+  
     
     return (
-        <div className={styles.overlay} ></div>
+        <div className={styles.overlay } onClick={onClick} ></div>
     )
 }
 

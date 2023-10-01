@@ -2,28 +2,21 @@ import { NavLink } from "react-router-dom";
 import { AppHeader } from "../../components/Header/AppHeader";
 import styles from "./Login.module.css";
 import { Button, EmailInput, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { AUTHORIZATION } from "../../constants/constants";
 import { loginRequest } from "../../store/entities/services/user/actions";
+import { useForm } from "../../hooks/useForm";
 
 
 export default function LoginPage() {
   const dispatch = useDispatch();
 
-  const [form, setForm] = useState({
-    email: "", 
-    password: "" 
-  });
+  const {values, handleChange, setValues} = useForm({email: "", password: ""});
 
-
-  const onChange = e => {
-    setForm({...form, [e.target.name]: e.target.value});
-  }
-
-  const onClick = e => {
-    dispatch(loginRequest(AUTHORIZATION, form));
-    setForm({email: "", password: ""});
+  const sendForm = e => {    
+    e.preventDefault();
+    dispatch(loginRequest(AUTHORIZATION, values));
+    setValues({email: "", password: ""});
   } 
 
     return ( <>
@@ -32,9 +25,11 @@ export default function LoginPage() {
       </div>
       <div className={styles.container}>
         <h1 className={styles.entrance}>Вход</h1>
-        <span className={styles.input}><EmailInput name={'email'} value={form.email} onChange={onChange} /></span>
-        <span className={styles.input}><PasswordInput name={'password'} value={form.password} onChange={onChange} /></span>
-        <span className={styles.input}><Button htmlType='submit' onClick={onClick}>Войти</Button></span>        
+        <form className={styles.form} onSubmit={sendForm}>
+          <span className={styles.input}><EmailInput name={'email'} value={values?.email} onChange={handleChange} /></span>
+          <span className={styles.input}><PasswordInput name={'password'} value={values?.password} onChange={handleChange} /></span>
+          <span className={styles.input}><Button htmlType='submit' >Войти</Button></span>  
+        </form>      
         <div className={styles.register}>
           Вы новыйй пользователь?
           <NavLink to='/register' >Зарегистрироваться</NavLink>

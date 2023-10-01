@@ -13,7 +13,7 @@ export const BurgerConstructor  = ({className}) => {
 
   const [isOpen, setIsOpen] = useState(false); 
   const ingredients = useSelector(store => store.ingredientsReducer.ingredients);
-  
+
 
   const { buns, ingredientsWithoutBuns } = useSelector(store => store.dnd);
 
@@ -21,6 +21,7 @@ export const BurgerConstructor  = ({className}) => {
   let location = useLocation();
   
   useEffect(() => {
+    
     dispatch(sendOrder(ingredientsWithoutBuns, buns));
   }, [isOpen]);  
   
@@ -37,7 +38,7 @@ export const BurgerConstructor  = ({className}) => {
           <span>{totalPrice()}</span>
           <CurrencyIcon type="primary" />
         </span>  
-       <NavLink to={`/orders/ordersDetail`} state={{backgroundLocation: location}} ><Button htmlType="button" type="primary" size="large" onClick={() => setIsOpen(true)}>
+       <NavLink to={`/orders/ordersDetail`} state={{backgroundLocation: location}} ><Button htmlType="button" type="primary" size="large" onClick={() => setIsOpen(!isOpen)}>
            Оформить заказ
           </Button>
        </NavLink>              

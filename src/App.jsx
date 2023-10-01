@@ -14,7 +14,7 @@ import { OrderDetails } from './components/OrderDetails/OrderDetails';
 
 function App() { 
 
-  let location = useLocation();
+  const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch(); 
 
@@ -40,12 +40,14 @@ function App() {
 
   return (<>
         <Routes location={state?.backgroundLocation || location}>
-            <Route path="/" element={<Page.Home />} />
+            <Route path="/"  element={<Page.Home />} />                      
+            <Route path="/ingredients/:ingredientsID" element={<IngredientDetails />} />           
             <Route path="/login" element={<Protected unAuth='true' element={<Page.Login />} />} />
             <Route path="/profile" element={<Protected element={<Page.Profile />} />} />
             <Route path="/register" element={<Protected unAuth='true' element={<Page.Register />} />} />
             <Route path="/forgot-password" element={<Protected unAuth='true' element={<Page.ForgotPassword />} />} />
             <Route path="/reset-password" element={<Protected unAuth='true' element={<Page.ResetPassword />} />} />
+            
             <Route path="*" element={<Page.NotFoundPage  />} />             
        </Routes>
        {state?.backgroundLocation && (<Routes>

@@ -31,7 +31,7 @@ export const Modal = ({children, onClick}) => {
     
     return createPortal(
       (<div>
-        <ModalOverlay />
+        <ModalOverlay onClick={onClick} />
       
         <div>
         {children}

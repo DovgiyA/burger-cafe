@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import { EmailInput, PasswordInput, Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDispatch, useSelector } from "react-redux";
 import { logout, refreshUser } from "../../store/entities/services/user/actions";
-import { useState } from "react";
+import { useForm } from "../../hooks/useForm";
 
 
 export default function ProfilePage() {
@@ -12,16 +12,11 @@ export default function ProfilePage() {
   
   const user = useSelector(store => store.user.user); 
 
-  const [form, setForm] = useState({
+  const {values, handleChange, setValues} = useForm({
     email: user.email, 
     name: user.name,
     password: '' 
   });
-
-
-  const onChange = e => {
-    setForm({...form, [e.target.name]: e.target.value});
-  }
 
     return (<>
       <div className={styles.wrapper}>
@@ -36,19 +31,18 @@ export default function ProfilePage() {
           <p className={styles.p1}>В этом разделе вы можете</p> 
           <p className={styles.p2}>изменить свои персональные данные</p>      
         </nav>
-        <div className={styles.input}>
-          <div className={styles.item}><Input name="name" type={'text'} value={form.name} onChange={onChange} placeholder={'Имя'} icon={'EditIcon'}/></div>
-          <div className={styles.item}><EmailInput name="email" value={form.email} onChange={onChange} icon={'EditIcon'} placeholder={'Логин'} /></div>
-          <div className={styles.item}><PasswordInput onChange={onChange} value={''}/></div>  
+        <form className={styles.input} onSubmit={() => dispatch(refreshUser(values))}>
+          <div className={styles.item}><Input name="name" type={'text'} value={values.name} onChange={handleChange} placeholder={'Имя'} icon={'EditIcon'}/></div>
+          <div className={styles.item}><EmailInput name="email" value={values.email} onChange={handleChange} icon={'EditIcon'} placeholder={'Логин'} /></div>
+          <div className={styles.item}><PasswordInput name="password" onChange={handleChange} value={values.password}/></div>  
           <div className={styles.button}>
-           {(user.email === form.email) && (user.name === form.name) ? null 
+           {(user.email === values.email) && (user.name === values.name) ? null 
             : (<>
-            <Button type='primary' htmlType='submit' onClick={() => dispatch(refreshUser(form))}>Сохранить</Button>
-            <Button type='primary' htmlType='reset' onClick={() => setForm({email: user.email, name: user.name})}>Отменить</Button>
-            </>)}
-            
+            <Button type='primary' htmlType='submit' >Сохранить</Button>
+            <Button type='primary' htmlType='reset' onClick={() => setValues({email: user.email, name: user.name, password: ''})}>Отменить</Button>
+            </>)}            
           </div>     
-        </div>
+        </form>
         </div>
     </>);
   };

@@ -7,7 +7,7 @@ export const Protected = ({unAuth = false, element}) => {
     
     const isChecked = useSelector((store) => store.user.isChecked);
     const user = useSelector(store => store.user.user);
-    let location = useLocation();
+    const location = useLocation();
 
     if (!isChecked) {
         return null;
