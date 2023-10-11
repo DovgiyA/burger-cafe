@@ -16,6 +16,7 @@ export const orderReducer = (state = initialState, action) => {
       };
     }
     case ORDER_LOADING_STATUS.ORDER_FINISHED: {
+      console.log(action.order)
       return { ...state, orderID: action.order,        
        ordersFailed: false,
        oredersRequest: false

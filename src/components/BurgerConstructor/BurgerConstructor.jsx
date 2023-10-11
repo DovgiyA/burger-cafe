@@ -3,27 +3,26 @@ import styles from './BurgerConstructor.module.css';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
-import { Modal } from '../Modal/Modal';
-import { OrderDetails } from '../OrderDetails/OrderDetails';
 import { useDispatch, useSelector } from 'react-redux';
 import { BurgerCardContainer } from '../BurgerCardContainer/BurgerCardContainer';
 import { sendOrder } from '../../store/entities/services/sendOrder/actions';
-import { resetIngredient } from '../../store/entities/services/burgerConstructor/actions';
+import { NavLink, useLocation } from 'react-router-dom';
 
 
 export const BurgerConstructor  = ({className}) => {
 
   const [isOpen, setIsOpen] = useState(false); 
   const ingredients = useSelector(store => store.ingredientsReducer.ingredients);
-  const orderID = useSelector(store => store.order.orderID);
+
 
   const { buns, ingredientsWithoutBuns } = useSelector(store => store.dnd);
 
   const dispatch = useDispatch();
+  let location = useLocation();
   
   useEffect(() => {
+    
     dispatch(sendOrder(ingredientsWithoutBuns, buns));
-    dispatch(resetIngredient());
   }, [isOpen]);  
   
  
@@ -39,14 +38,16 @@ export const BurgerConstructor  = ({className}) => {
           <span>{totalPrice()}</span>
           <CurrencyIcon type="primary" />
         </span>  
-        <Button htmlType="button" type="primary" size="large" onClick={() => setIsOpen(true)}>
+       <NavLink to={`/orders/ordersDetail`} state={{backgroundLocation: location}} ><Button htmlType="button" type="primary" size="large" onClick={() => setIsOpen(!isOpen)}>
            Оформить заказ
-        </Button>              
-      </div>}
-      {isOpen && (<Modal setIsOpen={setIsOpen}><OrderDetails setIsOpen={setIsOpen} orderID={orderID} /></Modal>)}
+          </Button>
+       </NavLink>              
+      </div>}      
     </div>);  
   };
 
   BurgerConstructor.propTypes = {  
     className: PropTypes.string.isRequired
   };
+
+  

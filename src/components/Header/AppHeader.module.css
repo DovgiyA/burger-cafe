@@ -1,10 +1,10 @@
 .main {
   display: grid;
-  grid-template-columns: auto auto auto auto 1fr auto;
+  grid-template-columns: auto auto  auto 110px auto;
   grid-template-rows: auto;
   gap: 80px;
   grid-template-areas: 
-  'constructor orders . logo . account';
+  'constructor orders logo . account';
   align-items: center;
   padding-top: 16px;
   padding-bottom: 16px;
@@ -21,7 +21,7 @@
 
 .logo {
   grid-area: logo;
-  padding-left: 20px;
+ 
 }
 
 .account {
@@ -36,4 +36,14 @@
   font-style: normal;
   font-weight: 400;
   line-height: 24px;
+}
+
+.active {
+  color: white;
+  text-decoration: none;
+}
+
+.pending {
+  color: rgba(133, 133, 173, 1);
+  text-decoration: none;
 }

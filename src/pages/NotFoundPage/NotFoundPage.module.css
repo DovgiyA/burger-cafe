@@ -1,0 +1,26 @@
+.wrapper {
+    display: grid;
+    grid-template-columns: 1fr auto auto 1fr;
+    grid-template-rows: auto auto;
+    grid-template-areas: 
+    '. header header .'
+    '. BurIngredients BurConstructor .';
+}
+
+.header {
+  grid-area: header;
+}
+
+.BurIngredients {
+    grid-area: BurIngredients;
+  }
+  
+  .BurConstructor {
+    grid-area: BurConstructor;
+  }
+
+  .page404 {
+    text-align: center;
+    font-size: 60px;
+    padding-top: 200px;
+  }
