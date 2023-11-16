@@ -9,14 +9,14 @@ import { useForm } from "../../hooks/useForm";
 
 
 export default function LoginPage() {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<any>();
 
-  const {values, handleChange, setValues} = useForm({email: "", password: ""});
+  const {values, handleChange, setValues} = useForm({email: "", password: "", name: '', token: ''});
 
-  const sendForm = e => {    
-    e.preventDefault();
+  const sendForm = (event: React.SyntheticEvent): void => {    
+    event.preventDefault();
     dispatch(loginRequest(AUTHORIZATION, values));
-    setValues({email: "", password: ""});
+    setValues({email: "", password: "", name: '', token: ''});
   } 
 
     return ( <>

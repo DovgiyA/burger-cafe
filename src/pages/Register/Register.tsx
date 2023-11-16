@@ -11,17 +11,18 @@ import { useForm } from "../../hooks/useForm";
 
 export default function RegisterPage() {
 
-  const {values, handleChange, setValues} = useForm({email: "", password: "", name: ""});
+  const {values, handleChange, setValues} = useForm({email: "", password: "", name: "", token: ''});
  
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<any>();
 
-  const sendForm = (e) => {
-    e.preventDefault();
+  const sendForm = (event: React.SyntheticEvent) => {
+    event.preventDefault();
     dispatch(loginRequest(REGISTRATION, values));
     setValues({
       email: "", 
       password: "", 
-      name: "" 
+      name: "" ,
+      token: ''
     });
   } 
 

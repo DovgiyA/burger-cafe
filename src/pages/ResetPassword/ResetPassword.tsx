@@ -11,9 +11,9 @@ import { useEffect } from 'react';
 
 export default function ResetPasswordPage() {
 
-  const dispatch = useDispatch(); 
+  const dispatch = useDispatch<any>(); 
   const navigate = useNavigate()
-  const success = useSelector(store => store.user.success); 
+  const success = useSelector((store: any) => store.user.success); 
   useEffect(() => {
     if (success) {
       navigate("/reset-password");
@@ -21,12 +21,12 @@ export default function ResetPasswordPage() {
     }
   }, [success]); 
 
-  const {values, handleChange, setValues} = useForm({password: "", token: ""});
+  const {values, handleChange, setValues} = useForm({password: "", token: "", email: '', name: ''});
 
-  const sendForm = e => {
-    e.preventDefault();
+  const sendForm = (event: React.SyntheticEvent) => {
+    event.preventDefault();
     dispatch(reset(RESET, values))
-    setValues({password: "", token: ""});
+    setValues({password: "", token: "", email: '', name: ''});
     
   }
 

@@ -1,12 +1,6 @@
 import { Outlet } from "react-router-dom";
 
-
-
-
-export default function IngredientsPage() {
-
-
- 
+export default function IngredientsPage() { 
     return (<Outlet />);
   };
 

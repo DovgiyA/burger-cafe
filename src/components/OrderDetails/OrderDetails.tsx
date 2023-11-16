@@ -6,7 +6,7 @@ import { resetIngredient } from "../../store/entities/services/burgerConstructor
 
 export const OrderDetails = () => { 
     
-    const orderID = useSelector(store => store.order.orderID);
+    const orderID = useSelector((store: any) => store.order.orderID);
     const dispatch = useDispatch();
 
     useEffect(() => {     

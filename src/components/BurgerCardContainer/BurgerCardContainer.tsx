@@ -5,20 +5,25 @@ import { useDispatch, useSelector } from 'react-redux';
 import { dragBun, dragIngredient } from '../../store/entities/services/burgerConstructor/actions';
 import { BurgerCards } from '../BurgerCards/BurgerCards';
 
-
+interface DragItem {
+  index: number
+  ingredientsID: string
+  type: string
+}
 
 export const BurgerCardContainer = () => { 
   
   const dispatch = useDispatch();
-  const ingredients = useSelector(store => store.ingredientsReducer.ingredients);
-  const { buns, ingredientsWithoutBuns } = useSelector(store => store.dnd);
+  const ingredients = useSelector((store: any) => store.ingredientsReducer.ingredients);
+  const { buns, ingredientsWithoutBuns } = useSelector((store: any) => store.dnd);
 
-  const [, drop] = useDrop({
+  const [, drop] = useDrop<DragItem>({
     accept: "ingredient",
     collect: monitor => ({
         isHover: monitor.isOver(),
     }),
     drop(itemId) {
+     
       ingredients[itemId.ingredientsID].type === 'bun' ? dispatch(dragBun(itemId.ingredientsID)) : dispatch(dragIngredient(itemId.ingredientsID));
     },
   });      
@@ -32,7 +37,7 @@ export const BurgerCardContainer = () => {
         thumbnail={ingredients[buns]?.image}
       />}</div>
       <div className={styles.card} >    
-        {ingredientsWithoutBuns?.map((ingredientDND, index) => <BurgerCards key={ingredientDND.item} ingredientsID={ingredientDND} index={index} />)}        
+        {ingredientsWithoutBuns?.map((ingredientDND: {item: string; ingredient: string}, index: number) => <BurgerCards key={ingredientDND.item} ingredientsID={ingredientDND} index={index} />)}        
       </div>
       <div className={styles.buns}>        
        {buns && <ConstructorElement

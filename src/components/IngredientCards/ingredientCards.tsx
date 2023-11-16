@@ -1,18 +1,20 @@
 import styles from './IngredientCards.module.css';
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
-import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import { useDrag } from 'react-dnd';
 import { useSelector } from 'react-redux';
 import { NavLink, useLocation } from 'react-router-dom';
 
+interface ingredientsIDI {
+  ingredientsID: string
+}
  
-export const IngredientCards = ({ ingredientsID }) => { 
+export const IngredientCards = ({ ingredientsID }: ingredientsIDI) => { 
 
-  const {ingredients} = useSelector(store => store.ingredientsReducer);
+  const {ingredients} = useSelector((store: any) => store.ingredientsReducer);
   let location = useLocation();
-  const ingredientsArr = useSelector(store => store.dnd.ingredientsWithoutBuns);
-  const buns = useSelector(store => store.dnd.buns);
+  const ingredientsArr = useSelector((store: any) => store.dnd.ingredientsWithoutBuns);
+  const buns = useSelector((store: any) => store.dnd.buns);
   const [counter, setCounter] = useState(0);
 
   const [, dragRef] = useDrag({
@@ -46,6 +48,3 @@ useEffect(() => {
     )
 }
 
-IngredientCards.propTypes = {  
-  ingredientsID: PropTypes.string.isRequired
-};

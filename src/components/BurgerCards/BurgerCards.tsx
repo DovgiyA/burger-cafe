@@ -4,14 +4,13 @@ import { useDrag, useDrop } from "react-dnd";
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteBun, sortIngredient } from '../../store/entities/services/burgerConstructor/actions';
 import { useRef } from 'react';
-import PropTypes from 'prop-types';
+import { BurgerCardsI, ingredientI } from '../../interfaces/interfases';
 
 
-
-export const BurgerCards = ({ingredientsID, index}) => {
+export const BurgerCards = ({ingredientsID, index}: BurgerCardsI): JSX.Element => {
     
-    const ingredients = useSelector(store => store.ingredientsReducer.ingredients);
-    const dndIngredients = useSelector(store => store.dnd.ingredientsWithoutBuns);
+    const ingredients = useSelector((store: any) => store.ingredientsReducer.ingredients);
+    const dndIngredients = useSelector((store: any) => store.dnd.ingredientsWithoutBuns);
     const dispatch = useDispatch(); 
    
     const [, dragRef] = useDrag({
@@ -22,18 +21,18 @@ export const BurgerCards = ({ingredientsID, index}) => {
           }),
     });
     
-    const moveCard = (id, dragIndex, hoverIndex) => {       
-        const newArr = dndIngredients.map(ingredient => ingredient.item) 
+    const moveCard = (id: string, dragIndex: number, hoverIndex: number) => {       
+        const newArr = dndIngredients.map((ingredient: ingredientI) => ingredient.item) 
       
         newArr.splice(dragIndex, 1,);
         newArr.splice(hoverIndex, 0, id);
 
-        const arr = dndIngredients.map(ingredient => dndIngredients[newArr.indexOf(ingredient.item)])
+        const arr = dndIngredients.map((ingredient: ingredientI) => dndIngredients[newArr.indexOf(ingredient.item)])
            
         dispatch(sortIngredient(arr)); 
       };
 
-    const [, dropRef] = useDrop({
+    const [, dropRef] = useDrop<BurgerCardsI>({
         accept: "element",
         collect: monitor => ({
             isHover: monitor.isOver(),
@@ -52,9 +51,9 @@ export const BurgerCards = ({ingredientsID, index}) => {
             item.index = hoverIndex;                       
         }
       });     
-
-      const ref = useRef(null)
-    const dragDropRef = dragRef(dropRef(ref))
+    
+      const ref = useRef<HTMLSpanElement>(null)
+    const dragDropRef: any = dragRef(dropRef(ref))
    
     return (
         <span className={styles.ingredient}  ref={dragDropRef} >
@@ -67,11 +66,3 @@ export const BurgerCards = ({ingredientsID, index}) => {
     /></span>
     )
 }
-
-BurgerCards.propTypes = {    
-    ingredientsID: PropTypes.shape({
-        ingredient: PropTypes.string.isRequired,
-        item: PropTypes.string.isRequired
-      }).isRequired,
-    index: PropTypes.number.isRequired
-  };

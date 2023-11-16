@@ -8,14 +8,15 @@ import { useForm } from "../../hooks/useForm";
 
 
 export default function ProfilePage() {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<any>();
   
-  const user = useSelector(store => store.user.user); 
+  const user = useSelector((store: any) => store.user.user); 
 
   const {values, handleChange, setValues} = useForm({
     email: user.email, 
     name: user.name,
-    password: '' 
+    password: '',
+    token: '' 
   });
 
     return (<>
@@ -33,13 +34,13 @@ export default function ProfilePage() {
         </nav>
         <form className={styles.input} onSubmit={() => dispatch(refreshUser(values))}>
           <div className={styles.item}><Input name="name" type={'text'} value={values.name} onChange={handleChange} placeholder={'Имя'} icon={'EditIcon'}/></div>
-          <div className={styles.item}><EmailInput name="email" value={values.email} onChange={handleChange} icon={'EditIcon'} placeholder={'Логин'} /></div>
+          <div className={styles.item}><EmailInput name="email" value={values.email} onChange={handleChange} isIcon={true} placeholder={'Логин'} /></div>
           <div className={styles.item}><PasswordInput name="password" onChange={handleChange} value={values.password}/></div>  
           <div className={styles.button}>
            {(user.email === values.email) && (user.name === values.name) ? null 
             : (<>
             <Button type='primary' htmlType='submit' >Сохранить</Button>
-            <Button type='primary' htmlType='reset' onClick={() => setValues({email: user.email, name: user.name, password: ''})}>Отменить</Button>
+            <Button type='primary' htmlType='reset' onClick={() => setValues({email: user.email, name: user.name, password: '', token: ''})}>Отменить</Button>
             </>)}            
           </div>     
         </form>

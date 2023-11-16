@@ -1,18 +1,18 @@
 import { useEffect } from "react";
 import { createPortal } from "react-dom";
-import PropTypes from 'prop-types';
 import { ModalOverlay } from "../ModalOverlay/ModalOverlay";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './Modal.module.css';
 
+interface ModalI {
+  children?: React.ReactNode;
+  onClick: () => void;
+}
 
-
-export const Modal = ({children, onClick}) => {
-  
-    
+export const Modal = ({children, onClick}: ModalI): JSX.Element => {    
 
     useEffect(() => {
-      const onKey = (event) => {
+      const onKey = (event: KeyboardEvent) => {
        
         if (event.key === "Escape") {
           onClick();
@@ -25,10 +25,8 @@ export const Modal = ({children, onClick}) => {
         };
       }, []);    
 
-      const modal = document.getElementById(
-        'modals'
-    );
-    
+      const modal: Element | null = document.getElementById('modals');
+      
     return createPortal(
       (<div>
         <ModalOverlay onClick={onClick} />
@@ -39,11 +37,8 @@ export const Modal = ({children, onClick}) => {
         </div>
             
       </div>),
+      //@ts-ignore
         modal
     ); 
 }
 
-Modal.propTypes = {    
-    children: PropTypes.element.isRequired,
-    onClick: PropTypes.func.isRequired,
-  };
