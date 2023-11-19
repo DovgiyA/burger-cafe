@@ -1,9 +1,13 @@
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './Tabs.module.css';
-import PropTypes from 'prop-types';
 
 
-export const Tabs = ({ current, setCurrent}) => {
+interface PropsI {
+  current: string;
+  setCurrent: (arg: string) => void;
+}
+
+export const Tabs = ({ current, setCurrent}: PropsI) => {
 
   return (
     <div className={styles.tabContainer}>
@@ -19,9 +23,3 @@ export const Tabs = ({ current, setCurrent}) => {
     </div>   
     )
 }
-
-
-Tabs.propTypes = {    
-  setCurrent:  PropTypes.func.isRequired,
-  current: PropTypes.string.isRequired
-};

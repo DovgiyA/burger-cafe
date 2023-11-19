@@ -1,33 +1,34 @@
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './BurgerConstructor.module.css';
 import classNames from 'classnames';
-import PropTypes from 'prop-types';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { BurgerCardContainer } from '../BurgerCardContainer/BurgerCardContainer';
 import { sendOrder } from '../../store/entities/services/sendOrder/actions';
 import { NavLink, useLocation } from 'react-router-dom';
+import { ClassNameI, ingredientI } from '../../interfaces/interfases';
+import { useModal } from '../../hooks/useModal';
 
 
-export const BurgerConstructor  = ({className}) => {
+export const BurgerConstructor  = ({className}: ClassNameI) => {
 
-  const [isOpen, setIsOpen] = useState(false); 
-  const ingredients = useSelector(store => store.ingredientsReducer.ingredients);
+  const { isModalOpen, openModal, closeModal } = useModal(); 
+  const ingredients = useSelector((store: any) => store.ingredientsReducer.ingredients);
 
 
-  const { buns, ingredientsWithoutBuns } = useSelector(store => store.dnd);
+  const { buns, ingredientsWithoutBuns } = useSelector((store: any) => store.dnd);
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<any>();
   let location = useLocation();
   
-  useEffect(() => {
-    
-    dispatch(sendOrder(ingredientsWithoutBuns, buns));
-  }, [isOpen]);  
+  useEffect(() => {    
+    closeModal();
+    dispatch(sendOrder(ingredientsWithoutBuns, buns));    
+  }, [isModalOpen]);  
   
  
     const totalPrice = () => {
-      return ingredientsWithoutBuns.reduce((acc, item) => acc + ingredients[item?.ingredient]?.price, ingredients[buns].price*2)
+      return ingredientsWithoutBuns.reduce((acc: number, item: ingredientI) => acc + ingredients[item?.ingredient]?.price, ingredients[buns].price*2)
     }
 
     return (    
@@ -38,16 +39,10 @@ export const BurgerConstructor  = ({className}) => {
           <span>{totalPrice()}</span>
           <CurrencyIcon type="primary" />
         </span>  
-       <NavLink to={`/orders/ordersDetail`} state={{backgroundLocation: location}} ><Button htmlType="button" type="primary" size="large" onClick={() => setIsOpen(!isOpen)}>
+       <NavLink to={`/orders/ordersDetail`} state={{backgroundLocation: location}} ><Button htmlType="button" type="primary" size="large" onClick={() => openModal()}>
            Оформить заказ
           </Button>
        </NavLink>              
       </div>}      
     </div>);  
   };
-
-  BurgerConstructor.propTypes = {  
-    className: PropTypes.string.isRequired
-  };
-
-  

@@ -3,14 +3,15 @@ import styles from "./IngredientDetails.module.css";
 import { useParams } from "react-router-dom";
 
 
+
+
 export const IngredientDetails = () => {
   
-    const {ingredients} = useSelector(store => store.ingredientsReducer);
-
+    const {ingredients} = useSelector((store: any) => store.ingredientsReducer);
     const {ingredientsID} = useParams();
 
     return ( 
-        <div className={styles.container} >
+        ingredientsID ? <div className={styles.container} >
             <div className={styles.wrapper}>
                 <span className={styles.header}>Детали ингредиента</span>                
             </div>            
@@ -35,5 +36,5 @@ export const IngredientDetails = () => {
                 </div>               
             </div>
         </div>
-    )
+    : null)
 }

@@ -1,13 +1,13 @@
 import styles from "./AppHeader.module.css";
 import { Logo, BurgerIcon, ListIcon, ProfileIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from 'prop-types';
 import { NavLink } from "react-router-dom";
+import { ClassNameI } from "../../interfaces/interfases";
 
 
-export const  AppHeader  = ({className}) => {
+export const  AppHeader  = ({className}: ClassNameI) => {
     return (<div className={className}>
       <header className={styles.main}>       
-          <span className={styles.constructor}>
+          <span className={styles.construct}>
             <BurgerIcon type="primary" />
             <NavLink to="/" className={({ isActive, isPending }) =>
     isPending ? styles.pending : isActive ? styles.active : styles.pending} >
@@ -32,8 +32,4 @@ export const  AppHeader  = ({className}) => {
        
       </header>
       </div>);
-  };
-
-  AppHeader.propTypes = { 
-    className: PropTypes.string.isRequired
   };

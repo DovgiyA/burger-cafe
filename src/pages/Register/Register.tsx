@@ -1,5 +1,3 @@
-
-import { AppHeader } from "../../components/Header/AppHeader";
 import styles from "./Register.module.css";
 import { Button, EmailInput, PasswordInput, Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { NavLink } from "react-router-dom";
@@ -11,24 +9,23 @@ import { useForm } from "../../hooks/useForm";
 
 export default function RegisterPage() {
 
-  const {values, handleChange, setValues} = useForm({email: "", password: "", name: ""});
+  const {values, handleChange, setValues} = useForm({email: "", password: "", name: "", token: ''});
  
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<any>();
 
-  const sendForm = (e) => {
-    e.preventDefault();
+  const sendForm = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     dispatch(loginRequest(REGISTRATION, values));
     setValues({
       email: "", 
       password: "", 
-      name: "" 
+      name: "" ,
+      token: ''
     });
   } 
 
     return (<>
-      <div className={styles.wrapper}>
-        <AppHeader  className={styles.header} />      
-      </div>
+     
       <div className={styles.container}>
         <h1 className={styles.entrance}>Регистрация</h1>
         <form className={styles.form} onSubmit={sendForm}>

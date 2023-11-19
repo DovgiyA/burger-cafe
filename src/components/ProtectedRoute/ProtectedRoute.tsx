@@ -1,16 +1,20 @@
 import { useSelector } from "react-redux"
 import { Navigate, useLocation } from "react-router-dom";
-import PropTypes from 'prop-types';
+
+export interface ProtectedRouteI {
+    unAuth?: boolean;
+    element: JSX.Element;
+}
 
 
-export const Protected = ({unAuth = false, element}) => {
+export const Protected = ({unAuth = false, element}: ProtectedRouteI): JSX.Element => {
     
-    const isChecked = useSelector((store) => store.user.isChecked);
-    const user = useSelector(store => store.user.user);
+    const isChecked = useSelector((store: any) => store.user.isChecked);
+    const user = useSelector((store: any) => store.user.user);
     const location = useLocation();
 
     if (!isChecked) {
-        return null;
+        return (<></>);
     }
 
     if (unAuth && user) {        
@@ -24,8 +28,3 @@ export const Protected = ({unAuth = false, element}) => {
 
     return element;
 }
-
-Protected.propTypes = {  
-    unAuth: PropTypes.string,
-    element: PropTypes.element.isRequired
-  };

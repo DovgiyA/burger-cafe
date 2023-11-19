@@ -1,4 +1,3 @@
-import { AppHeader } from "../../components/Header/AppHeader";
 import styles from "./ResetPassword.module.css";
 import { Button, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import { NavLink, useNavigate } from "react-router-dom";
@@ -11,9 +10,9 @@ import { useEffect } from 'react';
 
 export default function ResetPasswordPage() {
 
-  const dispatch = useDispatch(); 
+  const dispatch = useDispatch<any>(); 
   const navigate = useNavigate()
-  const success = useSelector(store => store.user.success); 
+  const success = useSelector((store: any) => store.user.success); 
   useEffect(() => {
     if (success) {
       navigate("/reset-password");
@@ -21,19 +20,16 @@ export default function ResetPasswordPage() {
     }
   }, [success]); 
 
-  const {values, handleChange, setValues} = useForm({password: "", token: ""});
+  const {values, handleChange, setValues} = useForm({password: "", token: "", email: '', name: ''});
 
-  const sendForm = e => {
-    e.preventDefault();
+  const sendForm = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     dispatch(reset(RESET, values))
-    setValues({password: "", token: ""});
+    setValues({password: "", token: "", email: '', name: ''});
     
   }
 
-    return (<>
-      <div className={styles.wrapper}>
-        <AppHeader  className={styles.header} />      
-      </div>
+    return (<>     
       <div className={styles.container}>
         <h1 className={styles.entrance}>Восстановление пароля</h1>
         <form className={styles.form} onSubmit={sendForm}> 
