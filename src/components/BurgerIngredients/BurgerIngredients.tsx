@@ -1,17 +1,16 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useRef } from 'react';
 import styles from './BurgerIngredients.module.css';
 import { IngredientCards } from '../IngredientCards/ingredientCards';
 import { Tabs } from '../Tabs/Tabs';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteIngredient, putIngredient } from '../../store/entities/services/burgerIngredients/actions';
+import { putIngredient } from '../../store/entities/services/burgerIngredients/actions';
 import { ClassNameI } from '../../interfaces/interfases';
-
 
 
 export const BurgerIngredients = ({className}: ClassNameI) => {
 
   const dispatch = useDispatch();
-  const [isOpen, setIsOpen] = useState(false);
+
   const {ingredients, ingredientsIDs} = useSelector((store: any) => store.ingredientsReducer);
   const [current, setCurrent] = useState('one');
  
@@ -19,14 +18,6 @@ export const BurgerIngredients = ({className}: ClassNameI) => {
   const bunsRef = useRef<HTMLHeadingElement | null>(null);
   const souceRef = useRef<HTMLHeadingElement | null>(null);
   const mainRef = useRef<HTMLHeadingElement | null>(null);  
-
-  useEffect(() => {
-    if (!isOpen) {
-      dispatch(deleteIngredient())
-    }  
-   
-  }, [isOpen, dispatch]);
-
 
 const R = (e: React.SyntheticEvent): void => {
   let scrollTop = e.currentTarget.scrollTop;
@@ -47,8 +38,7 @@ const R = (e: React.SyntheticEvent): void => {
   const clickHandler = (event: React.SyntheticEvent): void => {  
     //@ts-ignore   
       const selectedIngredient = event.target.alt;
-      dispatch(putIngredient(selectedIngredient))      
-      setIsOpen(true);  
+      dispatch(putIngredient(selectedIngredient))       
     }     
   
     return (

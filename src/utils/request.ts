@@ -1,6 +1,6 @@
 import { REFRESH } from "../constants/constants";
 
-const checkResponse = (res: Response): Promise<any> => {
+const checkResponse = (res: Response) => {
     if (res.ok) {          
         return res.json();
     }

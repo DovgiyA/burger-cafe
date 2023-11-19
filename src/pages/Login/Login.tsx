@@ -1,5 +1,4 @@
 import { NavLink } from "react-router-dom";
-import { AppHeader } from "../../components/Header/AppHeader";
 import styles from "./Login.module.css";
 import { Button, EmailInput, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDispatch } from "react-redux";
@@ -13,16 +12,13 @@ export default function LoginPage() {
 
   const {values, handleChange, setValues} = useForm({email: "", password: "", name: '', token: ''});
 
-  const sendForm = (event: React.SyntheticEvent): void => {    
+  const sendForm = (event: React.FormEvent<HTMLFormElement>): void => {    
     event.preventDefault();
     dispatch(loginRequest(AUTHORIZATION, values));
     setValues({email: "", password: "", name: '', token: ''});
   } 
 
-    return ( <>
-      <div className={styles.wrapper}>
-        <AppHeader  className={styles.header} />        
-      </div>
+    return ( <>      
       <div className={styles.container}>
         <h1 className={styles.entrance}>Вход</h1>
         <form className={styles.form} onSubmit={sendForm}>

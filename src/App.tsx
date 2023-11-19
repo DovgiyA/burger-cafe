@@ -9,6 +9,8 @@ import { checkUser } from './store/entities/services/user/actions';
 import { Protected } from './components/ProtectedRoute/ProtectedRoute';
 import { OrderDetails } from './components/OrderDetails/OrderDetails';
 import WebFont from 'webfontloader';
+import { AppHeader } from './components/Header/AppHeader';
+import styles from "./App.module.css";
 
 
 function App() { 
@@ -38,6 +40,9 @@ function App() {
 
 
   return (<>
+   <div className={styles.wrapper}>
+        <AppHeader  className={styles.header} />      
+      </div>
         <Routes location={state?.backgroundLocation || location}>
             <Route path="/"  element={<Page.Home />} />                      
             <Route path="/ingredients/:ingredientsID" element={<IngredientDetails />} />           

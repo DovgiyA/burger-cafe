@@ -16,6 +16,7 @@ export default function ForgotPasswordPage() {
   const dispatch = useDispatch<any>();
   const navigate = useNavigate()
   const success = useSelector((store: any) => store.user.success); 
+
   useEffect(() => {
     if (success) {
       navigate("/reset-password");
@@ -24,16 +25,13 @@ export default function ForgotPasswordPage() {
   }, [success]);
   
 
-  const sendForm = (event: React.SyntheticEvent): void => {   
+  const sendForm = (event: React.FormEvent<HTMLFormElement>): void => {   
     event.preventDefault();
     dispatch(reset(CHECK, values));
     setValues({email: "", password: '', name: '', token: ''});    
   } 
 
-    return (<>
-      <div className={styles.wrapper}>
-        <AppHeader  className={styles.header} />      
-      </div>
+    return (<>     
       <div className={styles.container}>
         <h1 className={styles.entrance}>Восстановление пароля</h1>  
        ()  

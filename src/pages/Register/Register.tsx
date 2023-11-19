@@ -1,5 +1,3 @@
-
-import { AppHeader } from "../../components/Header/AppHeader";
 import styles from "./Register.module.css";
 import { Button, EmailInput, PasswordInput, Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { NavLink } from "react-router-dom";
@@ -15,7 +13,7 @@ export default function RegisterPage() {
  
   const dispatch = useDispatch<any>();
 
-  const sendForm = (event: React.SyntheticEvent) => {
+  const sendForm = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     dispatch(loginRequest(REGISTRATION, values));
     setValues({
@@ -27,9 +25,7 @@ export default function RegisterPage() {
   } 
 
     return (<>
-      <div className={styles.wrapper}>
-        <AppHeader  className={styles.header} />      
-      </div>
+     
       <div className={styles.container}>
         <h1 className={styles.entrance}>Регистрация</h1>
         <form className={styles.form} onSubmit={sendForm}>

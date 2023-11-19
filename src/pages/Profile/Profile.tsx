@@ -1,4 +1,3 @@
-import { AppHeader } from "../../components/Header/AppHeader";
 import styles from "./Profile.module.css";
 import { NavLink } from "react-router-dom";
 import { EmailInput, PasswordInput, Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -20,8 +19,7 @@ export default function ProfilePage() {
   });
 
     return (<>
-      <div className={styles.wrapper}>
-        <AppHeader  className={styles.header} />         
+      <div className={styles.wrapper}>               
         <nav className={styles.text}>
           <NavLink to='/profile'  className={({ isActive, isPending }) =>
     isPending ? styles.pending : isActive ? styles.active : styles.pending }><p>Профиль</p></NavLink>
